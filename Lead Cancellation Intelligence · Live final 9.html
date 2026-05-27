@@ -1,0 +1,2156 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)file:///C:/Users/Vidit.agnihotri/Downloads/LCI_Live_Dashboard_23.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lead Cancellation Intelligence · Live</title>
+<link href="./Lead Cancellation Intelligence · Live final 9_files/css2" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f4f8;--sf:#fff;--bd:#e2e8f0;--bd2:#eef2f7;
+  --tx:#0d1b2a;--tx2:#2c3e50;--mu:#5a7a96;--fa:#a8bccc;
+  --nv:#0f2744;--nvm:#1a3d6e;--st:#2d6a9f;--sk:#4a90c4;
+  --mi:#ebf4fd;--fo:#f4f8fc;
+  --rd:#9e2020;--rdl:#fdf2f2;--rdb:#e8aaaa;
+  --am:#c47800;--aml:#fff8ec;--amb:#f0c060;
+  --gn:#1a6e42;--gnl:#eaf7f0;--gnb:#7ecba0;
+  --tl:#0a6858;--tll:#eaf5f2;--tlb:#70c4b0;
+  --bl:#1d6fa4;--bll:#e8f3fb;
+  --sw:190px;--th:58px;
+  --fn:'DM Sans',sans-serif;--mo:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:13.5px}
+body{font-family:var(--fn);background:var(--bg);color:var(--tx);min-height:100vh}
+/* TOPBAR */
+.bar{position:sticky;top:0;z-index:200;height:var(--th);background:var(--nv);display:flex;align-items:center;justify-content:space-between;padding:0 22px;box-shadow:0 2px 12px rgba(0,0,0,.22)}
+.bl{display:flex;align-items:center;gap:12px}
+.logo{width:34px;height:34px;border-radius:8px;background:var(--st);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.btit{font-size:15px;font-weight:600;color:#fff}
+.bsub{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px}
+.br{display:flex;align-items:center;gap:7px}
+.conn-chip{display:flex;align-items:center;gap:7px;padding:5px 12px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);cursor:pointer;font-size:11.5px;color:rgba(255,255,255,.7);transition:all .15s;user-select:none}
+.conn-chip:hover{background:rgba(255,255,255,.14)}
+.conn-chip .cdot{width:7px;height:7px;border-radius:50%;background:#6b7280;flex-shrink:0;transition:background .3s}
+.conn-chip.live .cdot{background:#22c55e;box-shadow:0 0 6px #22c55e}
+.conn-chip.loading .cdot{background:var(--am);animation:blink 1s infinite}
+.conn-chip.error .cdot{background:var(--rd)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.rmeta{font-size:10.5px;color:rgba(255,255,255,.38);text-align:right;line-height:1.7;display:none}
+.rmeta strong{color:rgba(255,255,255,.72)}
+.bbtn{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.65);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s;position:relative}
+.bbtn:hover{background:rgba(255,255,255,.18);color:#fff}
+.bbtn.spinning{animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* LAYOUT */
+.shell{display:flex;min-height:calc(100vh - var(--th));min-width:960px}
+.sidebar{width:var(--sw);flex-shrink:0;background:var(--sf);border-right:1px solid var(--bd);overflow-y:auto;position:sticky;top:var(--th);height:calc(100vh - var(--th))}
+.main{flex:1;min-width:0;padding:18px 24px 52px}
+/* SLICER */
+.sh{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 10px;border-bottom:1px solid var(--bd2);position:sticky;top:0;background:var(--sf);z-index:5}
+.shl{font-size:10.5px;font-weight:600;color:var(--tx);text-transform:uppercase;letter-spacing:.08em}
+.scl{font-size:11px;color:var(--st);cursor:pointer;font-weight:500}
+.ss{padding:9px 12px;border-bottom:1px solid var(--bd2)}
+.sl{font-size:10px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.dpre{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px}
+.pb{font-size:11px;padding:3px 7px;border-radius:4px;border:1px solid var(--bd);background:var(--sf);color:var(--mu);cursor:pointer;font-family:var(--fn);transition:all .12s}
+.pb:hover{border-color:var(--st);color:var(--st)}
+.pb.on{background:var(--nv);color:#fff;border-color:var(--nv)}
+.di{margin-top:5px;display:flex;flex-direction:column;gap:4px}
+.dr{display:flex;align-items:center;gap:6px}
+.dr label{font-size:11px;color:var(--mu);width:26px;flex-shrink:0}
+.dr input{flex:1;font-size:11px;padding:4px 6px;border:1px solid var(--bd);border-radius:5px;font-family:var(--fn);color:var(--tx2)}
+/* DROPDOWNS */
+.dd-wrap{position:relative;width:100%}
+.dd{width:100%;padding:6px 26px 6px 9px;border:1px solid var(--bd);border-radius:6px;font-size:11.5px;font-family:var(--fn);color:var(--tx2);background:var(--sf);appearance:none;-webkit-appearance:none;cursor:pointer;transition:border .15s;outline:none}
+.dd:hover{border-color:var(--st)}
+.dd:focus{border-color:var(--st);box-shadow:0 0 0 3px rgba(45,106,159,.1)}
+.dd.active{border-color:var(--st);background:var(--mi);color:var(--nv);font-weight:500}
+.dd-arr{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--fa);pointer-events:none}
+/* NAV TABS */
+.nt{display:flex;gap:2px;margin-bottom:16px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:4px;width:fit-content;flex-wrap:wrap}
+.ntb{padding:6px 13px;border-radius:7px;font-size:12px;font-weight:500;color:var(--mu);cursor:pointer;transition:all .15s;white-space:nowrap;user-select:none;display:flex;align-items:center;gap:5px}
+.ntb:hover{color:var(--tx2);background:var(--fo)}
+.ntb.on{background:var(--nv);color:#fff}
+.ntb.hidden-tab{display:none}
+.nn{font-size:10px;padding:1px 5px;border-radius:8px;font-family:var(--mo);background:rgba(255,255,255,.22)}
+.ntb:not(.on) .nn{background:var(--bd2);color:var(--fa)}
+.view{display:none}.view.on{display:block}
+/* LOADING */
+.lbar{height:3px;background:linear-gradient(90deg,var(--st) 0%,var(--sk) 50%,var(--st) 100%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:2px;margin-bottom:14px;display:none}
+.lbar.on{display:block}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* ALERT */
+.ab{border-radius:9px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;font-size:12.5px;line-height:1.65;color:var(--tx2);border:1px solid}
+.ab.amb{background:var(--aml);border-color:var(--amb)}
+.ab.red{background:var(--rdl);border-color:var(--rdb)}
+.ax{margin-left:auto;cursor:pointer;font-size:15px;flex-shrink:0;opacity:.55}
+/* KPIS */
+.kr{display:grid;gap:10px;margin-bottom:14px}
+.k5{grid-template-columns:repeat(5,1fr)}
+.k4{grid-template-columns:repeat(4,1fr)}
+.kpi{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:14px 16px;position:relative;overflow:hidden}
+.kpi.hidden-card{display:none}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.ka::before{background:var(--st)}.kb::before{background:var(--am)}
+.kc::before{background:var(--gn)}.kd::before{background:var(--rd)}
+.ke::before{background:var(--tl)}
+.kl{font-size:10px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.kv{font-size:25px;font-weight:300;color:var(--nv);line-height:1;margin-bottom:3px;font-family:var(--mo)}
+.ks{font-size:11px;color:var(--fa)}
+/* CARDS */
+.c3{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.c2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px 18px}
+.card.hidden-card{display:none}
+.ch{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.ct{font-size:11px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.07em}
+.cb{font-size:10px;padding:2px 7px;border-radius:4px;background:var(--fo);color:var(--mu);border:1px solid var(--bd);font-family:var(--mo)}
+/* DONUT */
+.dw{position:relative;width:100%;height:126px}
+.dc{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
+.dcv{font-size:19px;font-weight:300;color:var(--nv);font-family:var(--mo);line-height:1}
+.dcl{font-size:9px;font-weight:500;color:var(--fa);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+/* LEGEND */
+.lg{display:flex;flex-direction:column;gap:6px;margin-top:9px}
+.lrow{display:flex;align-items:center;justify-content:space-between}
+.ll{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--mu)}
+.ls{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.lv{font-size:12px;font-weight:500;color:var(--tx2);font-family:var(--mo)}
+/* GAP BARS */
+.gb{display:flex;flex-direction:column;gap:8px}
+.gr{display:flex;align-items:center;gap:10px}
+.gl{font-size:11px;color:var(--mu);width:62px;text-align:right;flex-shrink:0;font-family:var(--mo)}
+.gt{flex:1;height:22px;background:var(--fo);border-radius:4px;overflow:hidden}
+.gf{height:100%;border-radius:4px;display:flex;align-items:center;padding:0 8px;justify-content:space-between}
+.gbn{font-size:11px;font-weight:600}.gbp{font-size:10px;opacity:.72;font-family:var(--mo)}
+/* FUNNEL */
+.fr{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.frl{font-size:11.5px;color:var(--tx2);width:100px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fb2{flex:1;background:var(--fo);border-radius:3px;height:22px;overflow:hidden}
+.ff{height:100%;border-radius:3px;display:flex;align-items:center;padding:0 8px;font-size:11px;font-weight:600;color:#fff;min-width:24px}
+/* INSIGHTS */
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
+.ic{border-radius:9px;padding:12px 14px;border:1px solid var(--bd)}
+.ic.hidden-card{display:none}
+.ic.rd{background:var(--rdl);border-color:var(--rdb)}
+.ic.am{background:var(--aml);border-color:var(--amb)}
+.ic.gn{background:var(--gnl);border-color:var(--gnb)}
+.ic.bl{background:var(--bll);border-color:#b8d8ee}
+.ic.tl{background:var(--tll);border-color:var(--tlb)}
+.icl{font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;opacity:.6;margin-bottom:4px}
+.ic h4{font-size:12.5px;font-weight:600;margin-bottom:4px;line-height:1.35}
+.ic p{font-size:12px;line-height:1.6;opacity:.8}
+/* REASON CARDS */
+.rg{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
+.rc{background:var(--sf);border:1px solid var(--bd);border-radius:9px;padding:12px 14px;cursor:pointer;transition:all .15s}
+.rc:hover{border-color:var(--st);box-shadow:0 2px 8px rgba(15,39,68,.07)}
+.rc.sel{border-color:var(--st);border-width:2px}
+.rcl{font-size:12px;font-weight:500;color:var(--tx2);margin-bottom:5px;line-height:1.4}
+.rcn{font-size:22px;font-weight:300;font-family:var(--mo);color:var(--nv)}
+.rcb{height:3px;border-radius:2px;margin:5px 0}
+.rcp{font-size:11px;color:var(--fa);font-family:var(--mo)}
+/* TABLE */
+.tp{background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.th{padding:12px 18px 9px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ttr{display:flex;align-items:baseline;gap:10px}
+.tt{font-size:11px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.07em}
+.thi{font-size:11px;color:var(--fa)}
+.tf{display:flex;gap:4px;flex-wrap:wrap}
+.fbtn{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid var(--bd);background:var(--sf);color:var(--mu);cursor:pointer;transition:all .12s;font-family:var(--fn)}
+.fbtn:hover{border-color:var(--st);color:var(--st)}
+.fbtn.on{background:var(--nv);color:#fff;border-color:var(--nv)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
+thead tr{background:var(--fo)}
+th{font-size:10px;font-weight:600;color:var(--fa);text-align:left;padding:9px 10px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+th:first-child{padding-left:18px}th:last-child{padding-right:18px}
+td{padding:10px 10px;border-bottom:1px solid var(--bd2);color:var(--tx2);vertical-align:middle;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+td:first-child{padding-left:18px}td:last-child{padding-right:18px}
+tbody tr{transition:background .1s;cursor:pointer}
+tbody tr:hover{background:#fafcff}
+tbody tr:last-child td{border-bottom:none}
+.cln{font-weight:500;color:var(--nvm)}
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;white-space:nowrap}
+.chip::before{content:'';width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.55;flex-shrink:0}
+.c-nr{background:var(--aml);color:var(--am);border:1px solid var(--amb)}
+.c-ac{background:var(--gnl);color:var(--gn);border:1px solid var(--gnb)}
+.c-gp{background:var(--aml);color:var(--am);border:1px solid var(--amb)}
+.c-co{background:var(--gnl);color:var(--gn);border:1px solid var(--gnb)}
+.c-sp{background:var(--aml);color:var(--am);border:1px solid var(--amb)}
+.c-ns{background:var(--tll);color:var(--tl);border:1px solid var(--tlb)}
+/* PAGINATION */
+.pg{display:flex;align-items:center;justify-content:space-between;padding:9px 18px;border-top:1px solid var(--bd2);background:var(--fo)}
+.pi{font-size:11px;color:var(--fa);font-family:var(--mo)}
+.pc{display:flex;gap:3px}
+.pbtn{width:26px;height:26px;border-radius:6px;border:1px solid var(--bd);background:var(--sf);color:var(--mu);cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all .12s}
+.pbtn:hover:not(:disabled){border-color:var(--st);color:var(--st)}
+.pbtn.on{background:var(--nv);color:#fff;border-color:var(--nv)}
+.pbtn:disabled{opacity:.3;cursor:default}
+/* MINI TABLE */
+.mt{width:100%;border-collapse:collapse;font-size:12px}
+.mt th{font-size:10px;font-weight:600;color:var(--fa);text-transform:uppercase;letter-spacing:.06em;padding:6px 8px;border-bottom:1px solid var(--bd2);text-align:left}
+.mt td{padding:8px 8px;border-bottom:1px solid var(--bd2);color:var(--tx2);vertical-align:middle}
+.mt tr:last-child td{border-bottom:none}
+.mt tr:hover td{background:var(--fo)}
+/* DRAWER */
+.dbk{display:none;position:fixed;inset:0;background:rgba(10,28,50,.3);z-index:300;backdrop-filter:blur(2px)}
+.dbk.on{display:block}
+.dr2{position:fixed;top:0;right:-560px;width:520px;height:100vh;background:var(--sf);z-index:301;box-shadow:-6px 0 32px rgba(0,0,0,.12);display:flex;flex-direction:column;transition:right .26s cubic-bezier(.4,0,.2,1);overflow:hidden}
+.dr2.on{right:0}
+.dtop{background:var(--nv);padding:20px 22px 16px;flex-shrink:0;position:relative}
+.dcode{font-size:10px;font-weight:500;color:rgba(255,255,255,.35);font-family:var(--mo);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.dco{font-size:17px;font-weight:600;color:#fff;margin-bottom:11px;line-height:1.3;padding-right:34px}
+.dchips{display:flex;flex-wrap:wrap;gap:5px}
+.dch{font-size:11px;font-weight:500;padding:3px 8px;border-radius:4px;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.72);background:rgba(255,255,255,.07)}
+.dch.w{background:rgba(196,120,0,.2);border-color:rgba(240,192,96,.25);color:#fac060}
+.dch.g{background:rgba(26,110,66,.2);border-color:rgba(126,203,160,.25);color:#80d4a4}
+.dch.t{background:rgba(10,104,88,.2);border-color:rgba(112,196,176,.25);color:#70c4b0}
+.dx{position:absolute;top:16px;right:16px;width:26px;height:26px;border-radius:5px;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.65);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+.dx:hover{background:rgba(255,255,255,.22)}
+.dbody{flex:1;overflow-y:auto;padding:18px 22px 32px}
+.df{margin-bottom:14px}
+.dfl{font-size:10px;font-weight:600;color:var(--fa);text-transform:uppercase;letter-spacing:.09em;margin-bottom:3px}
+.dfv{font-size:13px;color:var(--tx2);line-height:1.68}
+.dfv.m{color:var(--mu)}
+.ddiv{height:1px;background:var(--bd2);margin:14px 0}
+.rcb2{background:var(--nv);border-radius:7px;padding:11px 13px;margin-bottom:11px}
+.rcbl{font-size:10px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.09em;margin-bottom:3px}
+.rcbv{font-size:13px;color:rgba(255,255,255,.88);line-height:1.65}
+.sgb{border-radius:7px;padding:11px 13px;border-left:3px solid var(--am);background:var(--aml);margin-bottom:13px}
+.sgb.ns{border-left-color:var(--tl);background:var(--tll)}
+.sgbl{font-size:10px;font-weight:600;color:var(--fa);text-transform:uppercase;letter-spacing:.09em;margin-bottom:3px}
+.sgbv{font-size:13px;color:var(--mu);line-height:1.65}
+.gpill{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;font-family:var(--mo)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-bottom:14px}
+.slog{display:flex;flex-direction:column}
+.se{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd2)}
+.se:last-child{border-bottom:none}
+.sed{font-size:10px;color:var(--fa);font-family:var(--mo);flex-shrink:0;width:70px;padding-top:2px}
+.set2{font-size:10px;padding:1px 6px;border-radius:3px;background:var(--fo);color:var(--mu);border:1px solid var(--bd2);flex-shrink:0;height:fit-content;margin-top:1px;white-space:nowrap}
+.sec{flex:1;min-width:0}
+.sedesc{font-size:12px;color:var(--tx2);line-height:1.55}
+.seby{font-size:10px;color:var(--fa);margin-top:2px}
+/* POLICY MODAL */
+.moverlay{display:none;position:fixed;inset:0;background:rgba(10,28,50,.45);z-index:400;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.moverlay.on{display:flex}
+.modal{background:var(--sf);border-radius:14px;width:820px;max-width:96vw;max-height:88vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.22)}
+.mhead{padding:20px 24px 16px;border-bottom:1px solid var(--bd)}
+.mhead h3{font-size:15px;font-weight:600;color:var(--nv);margin-bottom:3px}
+.mhead p{font-size:12px;color:var(--mu)}
+.mbody{padding:20px 24px 24px}
+.mcl{float:right;background:none;border:none;font-size:18px;color:var(--fa);cursor:pointer;margin-top:-2px}
+.mcl:hover{color:var(--tx)}
+/* Policy panel tabs */
+.pol-tabs{display:flex;gap:2px;margin-bottom:18px;border-bottom:1px solid var(--bd)}
+.pol-tab{padding:8px 16px;font-size:12.5px;font-weight:500;color:var(--mu);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--fn)}
+.pol-tab.on{color:var(--nv);border-bottom-color:var(--nv)}
+.pol-panel{display:none}.pol-panel.on{display:block}
+/* Policy toggle rows */
+.pol-section{margin-bottom:20px}
+.pol-sec-title{font-size:11px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--bd2)}
+.pol-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bd2)}
+.pol-row:last-child{border-bottom:none}
+.pol-info{flex:1;min-width:0}
+.pol-lbl{font-size:13px;font-weight:500;color:var(--tx2)}
+.pol-desc{font-size:11.5px;color:var(--mu);margin-top:2px}
+/* Toggle switch */
+.tog{position:relative;width:38px;height:20px;flex-shrink:0;margin-left:14px}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-sl{position:absolute;inset:0;background:#ccc;border-radius:20px;cursor:pointer;transition:.25s}
+.tog-sl:before{content:'';position:absolute;width:14px;height:14px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.25s}
+.tog input:checked+.tog-sl{background:var(--st)}
+.tog input:checked+.tog-sl:before{transform:translateX(18px)}
+/* Connection panel within modal */
+.src-tabs{display:flex;gap:2px;margin-bottom:18px;background:var(--fo);border:1px solid var(--bd);border-radius:9px;padding:4px}
+.src-tab{flex:1;padding:8px 10px;border-radius:6px;font-size:12px;font-weight:500;color:var(--mu);cursor:pointer;transition:all .15s;text-align:center}
+.src-tab:hover{color:var(--tx2)}
+.src-tab.on{background:var(--nv);color:#fff}
+.src-panel{display:none}.src-panel.on{display:block}
+.frow{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.flbl{font-size:12px;font-weight:500;color:var(--tx2)}
+.finp{padding:8px 11px;border:1px solid var(--bd);border-radius:7px;font-size:13px;font-family:var(--fn);color:var(--tx);width:100%;transition:border .15s}
+.finp:focus{outline:none;border-color:var(--st)}
+.fhint{font-size:11px;color:var(--fa);line-height:1.5}
+.fmap{background:var(--fo);border-radius:8px;padding:13px 15px;margin-top:10px;border:1px solid var(--bd2)}
+.fmap-title{font-size:11px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+.fmap-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px}
+.fmap-key{width:130px;color:var(--mu);flex-shrink:0;font-family:var(--mo);font-size:11px}
+.int-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.int-lbl{font-size:12px;color:var(--mu)}
+.int-num{width:56px;padding:5px 7px;border:1px solid var(--bd);border-radius:6px;font-size:12px;font-family:var(--mo);text-align:center;color:var(--tx)}
+.cta-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.btn-p{padding:8px 20px;background:var(--nv);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--fn)}
+.btn-p:hover{background:var(--nvm)}
+.btn-s{padding:8px 14px;background:var(--sf);color:var(--mu);border:1px solid var(--bd);border-radius:7px;font-size:13px;cursor:pointer;font-family:var(--fn)}
+.btn-s:hover{border-color:var(--st);color:var(--st)}
+.btn-danger{padding:8px 14px;background:var(--sf);color:var(--rd);border:1px solid var(--rdb);border-radius:7px;font-size:13px;cursor:pointer;font-family:var(--fn)}
+.test-res{margin-top:11px;padding:9px 12px;border-radius:7px;font-size:12px;line-height:1.6;display:none}
+.test-res.ok{background:var(--gnl);color:var(--gn);border:1px solid var(--gnb)}
+.test-res.err{background:var(--rdl);color:var(--rd);border:1px solid var(--rdb)}
+.test-res.info{background:var(--aml);color:var(--am);border:1px solid var(--amb)}
+.status-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--fo);border-radius:7px;font-size:12px;margin-top:9px;border:1px solid var(--bd2)}
+.conn-steps{margin:14px 0;background:var(--fo);border-radius:8px;padding:13px 15px;border:1px solid var(--bd2)}
+.conn-step{display:flex;gap:11px;padding:7px 0;border-bottom:1px solid var(--bd2);font-size:12.5px;color:var(--tx2)}
+.conn-step:last-child{border-bottom:none;padding-bottom:0}
+.step-n{width:20px;height:20px;border-radius:50%;background:var(--nv);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+/* Empty state */
+.empty-state{text-align:center;padding:60px 20px}
+.empty-state .icon{font-size:40px;margin-bottom:12px;opacity:.4}
+.empty-state h3{font-size:15px;font-weight:500;color:var(--tx2);margin-bottom:6px}
+.empty-state p{font-size:12.5px;color:var(--mu);max-width:360px;margin:0 auto 18px;line-height:1.65}
+</style>
+</head>
+<body>
+<!-- TOPBAR -->
+<div class="bar">
+  <div class="bl">
+    <div class="logo">LCI</div>
+    <div>
+      <div class="btit">Lead Cancellation Intelligence</div>
+      <div class="bsub" id="bsub">Google Sheets · 19 leads · 12:54:37 PM</div>
+    </div>
+  </div>
+  <div class="br">
+    <div class="rmeta" id="rmeta" style="display: block;"><div>Last refresh: <strong id="lastR">12:54:37 PM</strong></div><div>Next: <strong id="nextR">1:04:37 PM</strong></div></div>
+    <div class="conn-chip live" id="connChip" onclick="openModal(&#39;conn&#39;)"><span class="cdot"></span><span id="connLabel">Live · 19 leads</span></div>
+    <button class="bbtn" id="refreshBtn" title="Refresh now" onclick="manualRefresh()">↻</button>
+    <button class="bbtn" title="View policy — show/hide tabs &amp; charts" onclick="openModal(&#39;policy&#39;)" style="font-size:13px">⚙</button>
+    <button class="bbtn" title="Export PDF" onclick="window.print()">↓</button>
+  </div>
+</div>
+
+<div class="shell">
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sh">
+    <span class="shl">Filters</span>
+    <span id="actBadge" style="display:none;font-size:10.5px;font-weight:600;color:var(--am)">0 active</span>
+    <span class="scl" onclick="clearAll()">Clear</span>
+  </div>
+  <div class="ss">
+    <div class="sl">Cancellation date</div>
+    <div class="dpre">
+      <button class="pb on" data-p="all" onclick="setPre(this,&#39;all&#39;)">All</button>
+      <button class="pb" data-p="7" onclick="setPre(this,7)">7d</button>
+      <button class="pb" data-p="14" onclick="setPre(this,14)">14d</button>
+      <button class="pb" data-p="30" onclick="setPre(this,30)">30d</button>
+      <button class="pb" data-p="custom" onclick="setPre(this,&#39;custom&#39;)">Custom</button>
+    </div>
+    <div class="di" id="customD" style="display:none">
+      <div class="dr"><label>From</label><input type="date" id="dFrom" onchange="applyF()"></div>
+      <div class="dr"><label>To</label><input type="date" id="dTo" onchange="applyF()"></div>
+    </div>
+  </div>
+  <div class="ss"><div class="sl">Cancelled reason</div><div class="dd-wrap"><select class="dd" id="ddR" onchange="applyF()"><option value="">All reasons</option><option value="Client cancelled the project">Client cancelled the project (4)</option><option value="Client not responding">Client not responding (4)</option><option value="Cost is higher than competitors">Cost is higher than competitors (1)</option><option value="Cost is higher than qualitification stage (price submission higher than client expectation)">Cost is higher than qualitification stage (price submission higher than client expectation) (2)</option><option value="Management Decision">Management Decision (3)</option><option value="Other">Other (2)</option><option value="Scope is only a small part of entire project">Scope is only a small part of entire project (1)</option><option value="Scope lesser than threshhold limits">Scope lesser than threshhold limits (1)</option><option value="Timeline Misalignment">Timeline Misalignment (1)</option></select><i class="dd-arr">▾</i></div></div>
+  <div class="ss"><div class="sl">Stage</div><div class="dd-wrap"><select class="dd" id="ddSt" onchange="applyF()"><option value="">All stages</option><option value="Design-Sales">Design-Sales (12)</option><option value="Lead Created">Lead Created (1)</option><option value="Pre-Sales">Pre-Sales (5)</option><option value="Sales">Sales (1)</option></select><i class="dd-arr">▾</i></div></div>
+  <div class="ss"><div class="sl">Channel</div><div class="dd-wrap"><select class="dd" id="ddCh" onchange="applyF()"><option value="">All channels</option><option value="Contact Form 7">Contact Form 7 (1)</option><option value="Data &amp; Partnerships">Data &amp; Partnerships (1)</option><option value="Employee Reference">Employee Reference (6)</option><option value="FB Lead Ads">FB Lead Ads (4)</option><option value="Inbound calls">Inbound calls (1)</option><option value="Linktree">Linktree (1)</option><option value="Outbound Whatsapp">Outbound Whatsapp (1)</option><option value="Whatsapp">Whatsapp (4)</option></select><i class="dd-arr">▾</i></div></div>
+  <div class="ss"><div class="sl">City</div><div class="dd-wrap"><select class="dd" id="ddCi" onchange="applyF()"><option value="">All cities</option><option value="Ahmedabad">Ahmedabad (1)</option><option value="Bengaluru">Bengaluru (2)</option><option value="Delhi">Delhi (2)</option><option value="Gurgaon">Gurgaon (1)</option><option value="Gurugram">Gurugram (4)</option><option value="Hyderabad">Hyderabad (1)</option><option value="Indore">Indore (1)</option><option value="Kanpur">Kanpur (1)</option><option value="Kolkata">Kolkata (2)</option><option value="Noida">Noida (2)</option><option value="Raipur">Raipur (1)</option><option value="Siliguri">Siliguri (1)</option></select><i class="dd-arr">▾</i></div></div>
+  <div class="ss"><div class="sl">Reason quality</div><div class="dd-wrap"><select class="dd" id="ddRQ" onchange="applyF()"><option value="">All</option><option value="Accurate">Accurate</option><option value="Needs Review">Needs Review</option></select><i class="dd-arr">▾</i></div></div>
+  <div class="ss"><div class="sl">Recovery signal</div><div class="dd-wrap"><select class="dd" id="ddRS" onchange="applyF()"><option value="">All</option><option value="Signal Present">Signal Present</option><option value="No Signal">No Signal</option></select><i class="dd-arr">▾</i></div></div>
+  <div class="ss"><div class="sl">Sprint quality</div><div class="dd-wrap"><select class="dd" id="ddSQ" onchange="applyF()"><option value="">All</option><option value="Complete">Complete</option><option value="Gaps Present">Gaps Present</option></select><i class="dd-arr">▾</i></div></div>
+  <div class="ss"><div class="sl">Dead-zone gap</div><div class="dd-wrap"><select class="dd" id="ddG" onchange="applyF()"><option value="">All gaps</option><option value="0-15">0–15d · Healthy</option><option value="16-30">16–30d</option><option value="31-60">31–60d</option><option value="61-120">61–120d</option><option value="121-9999">120d+ · Zombie</option></select><i class="dd-arr">▾</i></div></div>
+  <div class="ss"><div class="sl">Cancelled by</div><div class="dd-wrap"><select class="dd" id="ddBy" onchange="applyF()"><option value="">All</option><option value="Chitransh Dang">Chitransh Dang (3)</option><option value="Mayank Kumar Singh">Mayank Kumar Singh (11)</option><option value="Sandhitsa Ghosh">Sandhitsa Ghosh (2)</option><option value="Sudeeti Chaturvedi">Sudeeti Chaturvedi (3)</option></select><i class="dd-arr">▾</i></div></div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="lbar" id="lbar"></div>
+  <div class="nt" id="navTabs">
+    <div class="ntb on" id="tab-overview" onclick="sv(&#39;overview&#39;,this)">Overview <span class="nn" id="nc-ov">19</span></div>
+    <div class="ntb" id="tab-insights" onclick="sv(&#39;insights&#39;,this)">Insights</div>
+    <div class="ntb" id="tab-reason" onclick="sv(&#39;reason&#39;,this)">By Reason</div>
+    <div class="ntb" id="tab-sprint" onclick="sv(&#39;sprint&#39;,this)">Sprint Quality <span class="nn" id="nc-sp">5</span></div>
+    <div class="ntb" id="tab-gap" onclick="sv(&#39;gap&#39;,this)">Dead-Zone Gaps <span class="nn" id="nc-gp">15</span></div>
+    <div class="ntb" id="tab-signal" onclick="sv(&#39;signal&#39;,this)">Recovery Signals <span class="nn" id="nc-sg">14</span></div>
+    <div class="ntb" id="tab-leads" onclick="sv(&#39;leads&#39;,this)">All Leads</div>
+    <div class="ntb" id="tab-glossary" onclick="sv(&#39;glossary&#39;,this)">📖 Guide</div>
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div id="emptyState" class="empty-state" style="display: none;">
+    <div class="icon">🔌</div>
+    <h3>No data source connected</h3>
+    <p>Connect your Google Sheet, Redash query or custom API to load live cancellation data.</p>
+    <button class="btn-p" onclick="openModal(&#39;conn&#39;)">Connect data source</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="view on" id="view-overview">
+    <div class="ab amb" id="alertBar" style="display: flex;"><span style="font-size:15px;flex-shrink:0">⚑</span><span id="alertTxt"><strong>Live · 19 leads:</strong> 37% of reasons need review. 14/19 losses show a recovery signal. Avg gap: 84d.</span><span class="ax" onclick="this.parentElement.style.display=&#39;none&#39;">✕</span></div>
+    <div class="kr k5" id="ovKpis">
+      <div class="kpi ka" id="kpi-total"><div class="kl">Total cancelled</div><div class="kv" id="kT">19</div><div class="ks" id="kTs">Leads · 5/27/2026</div></div>
+      <div class="kpi kb" id="kpi-gap"><div class="kl">Avg dead-zone gap</div><div class="kv" id="kG">84d</div><div class="ks" id="kGs">Avg across 19 leads</div></div>
+      <div class="kpi kc" id="kpi-nr"><div class="kl">Reason needs review</div><div class="kv" id="kNR">7/19</div><div class="ks" id="kNRs">37% of total</div></div>
+      <div class="kpi kd" id="kpi-sp"><div class="kl">Signal present</div><div class="kv" id="kSP">14/19</div><div class="ks">Recoverable losses</div></div>
+      <div class="kpi ke" id="kpi-mg"><div class="kl">Longest gap</div><div class="kv" id="kMG">512d</div><div class="ks" id="kMGs">Lux Industries Private Limited</div></div>
+    </div>
+    <div class="c3">
+      <div class="card" id="card-reason-chart"><div class="ch"><span class="ct">Cancelled reason breakdown</span><span class="cb">Bar</span></div><div id="c-reason" style="width:100%;height:195px;padding-top:4px"><svg viewBox="0 0 401 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:170px;display:block"><line x1="28" y1="120" x2="391" y2="120" stroke="#e2e8f0" stroke-width="1"></line><text x="24" y="124" text-anchor="end" font-size="9" fill="#a8bccc" font-family="monospace">0</text><line x1="28" y1="65" x2="391" y2="65" stroke="#e2e8f0" stroke-width="1"></line><text x="24" y="69" text-anchor="end" font-size="9" fill="#a8bccc" font-family="monospace">2</text><line x1="28" y1="10" x2="391" y2="10" stroke="#e2e8f0" stroke-width="1"></line><text x="24" y="14" text-anchor="end" font-size="9" fill="#a8bccc" font-family="monospace">4</text><rect x="38.2" y="10" width="29" height="110" fill="#1a3d6e" rx="3"></rect><text x="52.7" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Client</text><text x="52.7" y="140" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">not</text><text x="52.7" y="150" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">responding</text><rect x="38.2" y="10" width="29" height="160" fill="transparent"><title>Client not responding: 4</title></rect><rect x="77.4" y="10" width="29" height="110" fill="#9e2020" rx="3"></rect><text x="91.9" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Client</text><text x="91.9" y="140" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">cancelled</text><text x="91.9" y="150" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">the</text><rect x="77.4" y="10" width="29" height="160" fill="transparent"><title>Client cancelled the project: 4</title></rect><rect x="116.6" y="37.5" width="29" height="82.5" fill="#5a3e8e" rx="3"></rect><text x="131.1" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Management</text><text x="131.1" y="140" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Decision</text><rect x="116.6" y="10" width="29" height="160" fill="transparent"><title>Management Decision: 3</title></rect><rect x="155.8" y="65" width="29" height="55" fill="#1a6e42" rx="3"></rect><text x="170.3" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Other</text><rect x="155.8" y="10" width="29" height="160" fill="transparent"><title>Other: 2</title></rect><rect x="195" y="65" width="29" height="55" fill="#c47800" rx="3"></rect><text x="209.5" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Cost</text><text x="209.5" y="140" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">is</text><text x="209.5" y="150" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">higher</text><rect x="195" y="10" width="29" height="160" fill="transparent"><title>Cost is higher than qualitification stage (price submission higher than client expectation): 2</title></rect><rect x="234.2" y="92.5" width="29" height="27.5" fill="#7a8a96" rx="3"></rect><text x="248.7" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Scope</text><text x="248.7" y="140" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">is</text><text x="248.7" y="150" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">only a</text><rect x="234.2" y="10" width="29" height="160" fill="transparent"><title>Scope is only a small part of entire project: 1</title></rect><rect x="273.4" y="92.5" width="29" height="27.5" fill="#0a6858" rx="3"></rect><text x="287.9" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Cost</text><text x="287.9" y="140" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">is</text><text x="287.9" y="150" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">higher</text><rect x="273.4" y="10" width="29" height="160" fill="transparent"><title>Cost is higher than competitors: 1</title></rect><rect x="312.6" y="92.5" width="29" height="27.5" fill="#1d6fa4" rx="3"></rect><text x="327.1" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Scope</text><text x="327.1" y="140" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">lesser</text><text x="327.1" y="150" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">than</text><rect x="312.6" y="10" width="29" height="160" fill="transparent"><title>Scope lesser than threshhold limits: 1</title></rect><rect x="351.8" y="92.5" width="29" height="27.5" fill="#6b5e42" rx="3"></rect><text x="366.3" y="130" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Timeline</text><text x="366.3" y="140" text-anchor="middle" font-size="7" fill="#7a90a4" font-family="sans-serif">Misalignment</text><rect x="351.8" y="10" width="29" height="160" fill="transparent"><title>Timeline Misalignment: 1</title></rect></svg></div></div>
+      <div class="card" id="card-rq">
+        <div class="ch"><span class="ct">Reason quality</span><span class="cb" id="rqc">19</span></div>
+        <div class="dw"><div id="c-rq" style="width:100%;height:128px"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:160px;display:block;margin:0 auto"><circle cx="80" cy="80" r="57" fill="none" stroke="#f4f8fc" stroke-width="17"></circle><circle cx="80" cy="80" r="57" fill="none" stroke="#c47800" stroke-width="17" stroke-dasharray="131.9468914507713 226.1946710584651" stroke-dashoffset="89.5353906273091" stroke-linecap="butt"></circle><circle cx="80" cy="80" r="57" fill="none" stroke="#1a6e42" stroke-width="17" stroke-dasharray="226.19467105846508 131.94689145077132" stroke-dashoffset="-42.41150082346219" stroke-linecap="butt"></circle></svg></div><div class="dc"><div class="dcv" id="rqpct">37%</div><div class="dcl">Needs<br>review</div></div></div>
+        <div class="lg"><div class="lrow"><div class="ll"><span class="ls" style="background:#c47800"></span>Needs review</div><span class="lv" id="rqnr">7</span></div><div class="lrow"><div class="ll"><span class="ls" style="background:#1a6e42"></span>Accurate</div><span class="lv" id="rqac">12</span></div></div>
+      </div>
+      <div class="card" id="card-rs">
+        <div class="ch"><span class="ct">Recovery signal</span><span class="cb" id="rsc">19</span></div>
+        <div class="dw"><div id="c-rs" style="width:100%;height:128px"><svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:160px;display:block;margin:0 auto"><circle cx="80" cy="80" r="57" fill="none" stroke="#f4f8fc" stroke-width="17"></circle><circle cx="80" cy="80" r="57" fill="none" stroke="#c47800" stroke-width="17" stroke-dasharray="263.8937829015426 94.24777960769381" stroke-dashoffset="89.5353906273091" stroke-linecap="butt"></circle><circle cx="80" cy="80" r="57" fill="none" stroke="#0a6858" stroke-width="17" stroke-dasharray="94.24777960769379 263.89378290154264" stroke-dashoffset="-174.3583922742335" stroke-linecap="butt"></circle></svg></div><div class="dc"><div class="dcv" id="rspct">74%</div><div class="dcl">Signal<br>present</div></div></div>
+        <div class="lg"><div class="lrow"><div class="ll"><span class="ls" style="background:#c47800"></span>Signal present</div><span class="lv" id="rsspv">14</span></div><div class="lrow"><div class="ll"><span class="ls" style="background:#0a6858"></span>No signal</div><span class="lv" id="rsnsv">5</span></div></div>
+      </div>
+    </div>
+    <div class="c2">
+      <div class="card" id="card-gapbars"><div class="ch"><span class="ct">Dead-zone gap distribution</span><span class="cb">Buckets</span></div><div class="gb" id="gapBars" style="margin-top:6px"><div class="gr"><span class="gl">0–15d</span>
+      <div class="gt"><div class="gf" style="width:21%;background:#a8d8b4">
+        <span class="gbn" style="color:#165c35">4 leads</span>
+        <span class="gbp" style="color:#165c35">21%</span>
+      </div></div></div><div class="gr"><span class="gl">16–30d</span>
+      <div class="gt"><div class="gf" style="width:5%;background:#fad08a">
+        <span class="gbn" style="color:#7a4a00">1 lead</span>
+        <span class="gbp" style="color:#7a4a00">5%</span>
+      </div></div></div><div class="gr"><span class="gl">31–60d</span>
+      <div class="gt"><div class="gf" style="width:21%;background:#f0a898">
+        <span class="gbn" style="color:#7a1e10">4 leads</span>
+        <span class="gbp" style="color:#7a1e10">21%</span>
+      </div></div></div><div class="gr"><span class="gl">61–120d</span>
+      <div class="gt"><div class="gf" style="width:37%;background:#e8aaaa">
+        <span class="gbn" style="color:#7a1e10">7 leads</span>
+        <span class="gbp" style="color:#7a1e10">37%</span>
+      </div></div></div><div class="gr"><span class="gl">120d+</span>
+      <div class="gt"><div class="gf" style="width:16%;background:#c0304a">
+        <span class="gbn" style="color:#fff">3 leads</span>
+        <span class="gbp" style="color:#fff">16%</span>
+      </div></div></div></div></div>
+      <div class="card" id="card-funnel"><div class="ch"><span class="ct">Stage at cancellation</span><span class="cb">Funnel</span></div><div id="stageFunnel" style="margin-top:4px"><div class="fr"><div class="frl" title="Design-Sales">Design-Sales</div><div class="fb2"><div class="ff" style="width:100%;background:#1d3461">12</div></div></div><div class="fr"><div class="frl" title="Pre-Sales">Pre-Sales</div><div class="fb2"><div class="ff" style="width:42%;background:#2d6a9f">5</div></div></div><div class="fr"><div class="frl" title="Sales">Sales</div><div class="fb2"><div class="ff" style="width:8%;background:#1a7a4a">1</div></div></div><div class="fr"><div class="frl" title="Lead Created">Lead Created</div><div class="fb2"><div class="ff" style="width:8%;background:#c47800">1</div></div></div></div></div>
+    </div>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div class="view" id="view-insights">
+    <div class="ig" id="insightsGrid">
+    <div class="ic rd"><div class="icl">Top loss driver</div><h4>Client not responding — 21% of cancellations</h4><p><strong>4 of 19 leads</strong> lost to this reason. Median gap: 63d. Implement a 15-day follow-up trigger in CRM.</p></div>
+    <div class="ic am"><div class="icl">Data quality</div><h4>7 of 19 reasons need review (37%)</h4><p>2 leads tagged <strong>"Other"</strong> — zero signal value. Enforce specific reason selection at cancellation.</p></div>
+    <div class="ic am"><div class="icl">Sprint trail discipline</div><h4>5 leads (26%) have sprint gaps</h4><p><strong>14 leads</strong> went silent for 30+ days. <strong>4 leads</strong> have only 1 sprint — zero client interaction documented.</p></div>
+    <div class="ic gn"><div class="icl">Recovery opportunity</div><h4>14 leads (74%) showed a recovery signal</h4><p>4 follow-up collapse, 6 cost signal ignored. Proactive follow-up after proposals are highest-yield interventions.</p></div>
+    <div class="ic bl"><div class="icl">Channel intelligence</div><h4>Employee Reference is the top loss channel</h4><p>32% of cancellations in this filter. Review qualification criteria and follow-up SOPs for this channel.</p></div>
+    <div class="ic tl"><div class="icl">Positive flag</div><h4>5 correct exits — sound decisions</h4><p>Leads marked No Signal had genuinely external outcomes or correct management decisions. Decision quality is good — label accuracy and sprint logging are the gaps to close.</p></div></div>
+    <div class="c2">
+      <div class="card" id="card-channel"><div class="ch"><span class="ct">Loss by channel</span><span class="cb">Bar</span></div><div id="c-chan" style="width:100%;overflow:hidden;padding-top:4px"></div></div>
+      <div class="card" id="card-byname"><div class="ch"><span class="ct">Cancelled by</span><span class="cb">Table</span></div><table class="mt"><thead><tr><th>#</th><th>Person</th><th>Leads</th><th>Share</th></tr></thead><tbody id="byBody">
+    <tr><td style="color:var(--fa);font-weight:600;font-size:11px">1</td>
+    <td style="font-weight:500">Mayank Kumar Singh</td><td style="font-weight:600;color:var(--nv)">11</td>
+    <td><span style="font-weight:600;color:#2d6a9f;margin-right:5px">58%</span>
+      <span style="display:inline-block;width:50px;height:4px;background:var(--bd2);border-radius:2px;vertical-align:middle">
+        <span style="display:block;height:100%;width:58%;background:#2d6a9f;border-radius:2px"></span></span></td></tr>
+    <tr><td style="color:var(--fa);font-weight:600;font-size:11px">2</td>
+    <td style="font-weight:500">Sudeeti Chaturvedi</td><td style="font-weight:600;color:var(--nv)">3</td>
+    <td><span style="font-weight:600;color:#2d6a9f;margin-right:5px">16%</span>
+      <span style="display:inline-block;width:50px;height:4px;background:var(--bd2);border-radius:2px;vertical-align:middle">
+        <span style="display:block;height:100%;width:16%;background:#2d6a9f;border-radius:2px"></span></span></td></tr>
+    <tr><td style="color:var(--fa);font-weight:600;font-size:11px">3</td>
+    <td style="font-weight:500">Chitransh Dang</td><td style="font-weight:600;color:var(--nv)">3</td>
+    <td><span style="font-weight:600;color:#2d6a9f;margin-right:5px">16%</span>
+      <span style="display:inline-block;width:50px;height:4px;background:var(--bd2);border-radius:2px;vertical-align:middle">
+        <span style="display:block;height:100%;width:16%;background:#2d6a9f;border-radius:2px"></span></span></td></tr>
+    <tr><td style="color:var(--fa);font-weight:600;font-size:11px">4</td>
+    <td style="font-weight:500">Sandhitsa Ghosh</td><td style="font-weight:600;color:var(--nv)">2</td>
+    <td><span style="font-weight:600;color:#2d6a9f;margin-right:5px">11%</span>
+      <span style="display:inline-block;width:50px;height:4px;background:var(--bd2);border-radius:2px;vertical-align:middle">
+        <span style="display:block;height:100%;width:11%;background:#2d6a9f;border-radius:2px"></span></span></td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- BY REASON -->
+  <div class="view" id="view-reason">
+    <div class="rg" id="rcards"><div class="rc" onclick="filByR(&#39;Client not responding&#39;,this)">
+      <div class="rcl">Client not responding</div><div class="rcn">4</div>
+      <div class="rcb" style="background:#1a3d6e;width:37.89473684210526%"></div>
+      <div class="rcp">21% of total</div>
+    </div><div class="rc" onclick="filByR(&#39;Client cancelled the project&#39;,this)">
+      <div class="rcl">Client cancelled the project</div><div class="rcn">4</div>
+      <div class="rcb" style="background:#9e2020;width:37.89473684210526%"></div>
+      <div class="rcp">21% of total</div>
+    </div><div class="rc" onclick="filByR(&#39;Management Decision&#39;,this)">
+      <div class="rcl">Management Decision</div><div class="rcn">3</div>
+      <div class="rcb" style="background:#5a3e8e;width:28.421052631578945%"></div>
+      <div class="rcp">16% of total</div>
+    </div><div class="rc" onclick="filByR(&#39;Other&#39;,this)">
+      <div class="rcl">Other</div><div class="rcn">2</div>
+      <div class="rcb" style="background:#1a6e42;width:18.94736842105263%"></div>
+      <div class="rcp">11% of total</div>
+    </div><div class="rc" onclick="filByR(&#39;Cost is higher than qualitification stage (price submission higher than client expectation)&#39;,this)">
+      <div class="rcl">Cost is higher than qualitification stage (price submission higher than client expectation)</div><div class="rcn">2</div>
+      <div class="rcb" style="background:#c47800;width:18.94736842105263%"></div>
+      <div class="rcp">11% of total</div>
+    </div><div class="rc" onclick="filByR(&#39;Scope is only a small part of entire project&#39;,this)">
+      <div class="rcl">Scope is only a small part of entire project</div><div class="rcn">1</div>
+      <div class="rcb" style="background:#7a8a96;width:9.473684210526315%"></div>
+      <div class="rcp">5% of total</div>
+    </div><div class="rc" onclick="filByR(&#39;Cost is higher than competitors&#39;,this)">
+      <div class="rcl">Cost is higher than competitors</div><div class="rcn">1</div>
+      <div class="rcb" style="background:#0a6858;width:9.473684210526315%"></div>
+      <div class="rcp">5% of total</div>
+    </div><div class="rc" onclick="filByR(&#39;Scope lesser than threshhold limits&#39;,this)">
+      <div class="rcl">Scope lesser than threshhold limits</div><div class="rcn">1</div>
+      <div class="rcb" style="background:#1d6fa4;width:9.473684210526315%"></div>
+      <div class="rcp">5% of total</div>
+    </div><div class="rc" onclick="filByR(&#39;Timeline Misalignment&#39;,this)">
+      <div class="rcl">Timeline Misalignment</div><div class="rcn">1</div>
+      <div class="rcb" style="background:#6b5e42;width:9.473684210526315%"></div>
+      <div class="rcp">5% of total</div>
+    </div></div>
+    <div class="tp">
+      <div class="th"><div class="ttr"><span class="tt" id="rtitle">All leads (19)</span><span class="thi">Click reason card to filter</span></div></div>
+      <table><thead><tr><th style="width:36px">#</th><th style="width:162px">Company</th><th>Cancelled reason</th><th style="width:108px">Reason quality</th><th style="width:60px">Gap</th><th style="width:115px">Recovery signal</th></tr></thead><tbody id="rtbl"><tr onclick="openD(0)">
+      <td style="font-size:11px;color:var(--fa)">1</td>
+      <td><span class="cln">Lux Industries Private Limited</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">512d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(1)">
+      <td style="font-size:11px;color:var(--fa)">2</td>
+      <td><span class="cln">Sumadhura Workship 3</span></td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">136d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(2)">
+      <td style="font-size:11px;color:var(--fa)">3</td>
+      <td><span class="cln">EDEN Renewables India LLP</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">125d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(3)">
+      <td style="font-size:11px;color:var(--fa)">4</td>
+      <td><span class="cln">Purbasha Group</span></td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">82d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(4)">
+      <td style="font-size:11px;color:var(--fa)">5</td>
+      <td><span class="cln">Kaizen Group</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">95d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(5)">
+      <td style="font-size:11px;color:var(--fa)">6</td>
+      <td><span class="cln">Deccan Empire Pvt Ltd</span></td>
+      <td style="color:var(--mu)" title="Other">Other</td>
+      <td><span class="chip c-nr">Needs Review</span></td><td><span class="chip" style="background:#fff8ec;color:#7a4a00;border:1px solid #f0c060">43d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(6)">
+      <td style="font-size:11px;color:var(--fa)">7</td>
+      <td><span class="cln">Neolitezkw Lightings Ltd.</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-nr">Needs Review</span></td><td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">70d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(7)">
+      <td style="font-size:11px;color:var(--fa)">8</td>
+      <td><span class="cln">Delphi Towers (ORD Towers)</span></td>
+      <td style="color:var(--mu)" title="Scope is only a small part of entire project">Scope is only a small part of entire project</td>
+      <td><span class="chip c-nr">Needs Review</span></td><td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">70d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(8)">
+      <td style="font-size:11px;color:var(--fa)">9</td>
+      <td><span class="cln">PwC- Experience Center</span></td>
+      <td style="color:var(--mu)" title="Management Decision">Management Decision</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">82d</span></td><td><span class="chip c-ns">No Signal</span></td>
+    </tr><tr onclick="openD(9)">
+      <td style="font-size:11px;color:var(--fa)">10</td>
+      <td><span class="cln">DMC Gardens and Promoters LLP</span></td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">65d</span></td><td><span class="chip c-ns">No Signal</span></td>
+    </tr></tbody></table>
+      <div class="pg"><span class="pi" id="rp-i">1–10 of 19</span><div class="pc"><button class="pbtn" id="rp-p" onclick="rpC(-1)" disabled="">←</button><div id="rp-n" style="display:flex;gap:3px"><button class="pbtn on" onclick="rpGoPage(0)">1</button><button class="pbtn" onclick="rpGoPage(1)">2</button></div><button class="pbtn" id="rp-nx" onclick="rpC(1)">→</button></div></div>
+    </div>
+  </div>
+
+  <!-- SPRINT QUALITY -->
+  <div class="view" id="view-sprint">
+    <div class="kr k4">
+      <div class="kpi kb"><div class="kl">Gaps present</div><div class="kv" id="spgp">5</div><div class="ks">of total</div></div>
+      <div class="kpi kc"><div class="kl">Complete trail</div><div class="kv" id="spco">14</div><div class="ks">of total</div></div>
+      <div class="kpi kd"><div class="kl">Gap &gt;30d</div><div class="kv" id="spo30">3</div><div class="ks">Critical</div></div>
+      <div class="kpi ka"><div class="kl">Single-sprint leads</div><div class="kv" id="spss">4</div><div class="ks">Zero client interaction</div></div>
+    </div>
+    <div class="c2" style="margin-bottom:13px">
+      <div class="card"><div class="ch"><span class="ct">Sprint failure patterns</span></div><div id="spPat"><div style="display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-bottom:1px solid var(--bd2)">
+      <div style="font-size:20px;font-weight:300;font-family:var(--mo);color:var(--nv);flex-shrink:0;min-width:28px">3</div>
+      <div><div style="font-size:12px;font-weight:500;color:var(--tx2);margin-bottom:2px">Dead zone 30+ days</div>
+      <div style="font-size:11.5px;color:var(--mu);line-height:1.5">Lead went completely silent for over a month with no sprint before cancellation.</div></div>
+    </div><div style="display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-bottom:1px solid var(--bd2)">
+      <div style="font-size:20px;font-weight:300;font-family:var(--mo);color:var(--nv);flex-shrink:0;min-width:28px">7</div>
+      <div><div style="font-size:12px;font-weight:500;color:var(--tx2);margin-bottom:2px">Reason ≠ sprint reality</div>
+      <div style="font-size:11.5px;color:var(--mu);line-height:1.5">The logged reason contradicts or misrepresents what the sprint trail actually shows.</div></div>
+    </div><div style="display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-bottom:1px solid var(--bd2)">
+      <div style="font-size:20px;font-weight:300;font-family:var(--mo);color:var(--nv);flex-shrink:0;min-width:28px">4</div>
+      <div><div style="font-size:12px;font-weight:500;color:var(--tx2);margin-bottom:2px">Single-sprint leads</div>
+      <div style="font-size:11.5px;color:var(--mu);line-height:1.5">Only 1 sprint logged — zero or minimal client interaction documented.</div></div>
+    </div><div style="display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-bottom:1px solid var(--bd2)">
+      <div style="font-size:20px;font-weight:300;font-family:var(--mo);color:var(--nv);flex-shrink:0;min-width:28px">6</div>
+      <div><div style="font-size:12px;font-weight:500;color:var(--tx2);margin-bottom:2px">Cost / competitive signal ignored</div>
+      <div style="font-size:11.5px;color:var(--mu);line-height:1.5">Budget or competitor concern visible early — not formally resolved before progression.</div></div>
+    </div></div></div>
+      <div class="card"><div class="ch"><span class="ct">Sprint quality split</span></div>
+        <div class="dw"><div id="c-spr" style="width:100%;height:128px"></div><div class="dc"><div class="dcv" id="sppct">26%</div><div class="dcl">Gaps<br>present</div></div></div>
+        <div class="lg"><div class="lrow"><div class="ll"><span class="ls" style="background:#c47800"></span>Gaps present</div><span class="lv" id="spgpv">5</span></div><div class="lrow"><div class="ll"><span class="ls" style="background:#1a6e42"></span>Complete</div><span class="lv" id="spcov">14</span></div></div>
+      </div>
+    </div>
+    <div class="tp">
+      <div class="th"><div class="ttr"><span class="tt">Leads with gaps present</span><span class="thi">Click row for full story</span></div></div>
+      <table><thead><tr><th style="width:36px">#</th><th style="width:162px">Company</th><th>Cancelled reason</th><th style="width:100px">Sprint quality</th><th style="width:60px">Gap</th><th style="width:115px">Recovery signal</th></tr></thead><tbody id="sptbl"><tr onclick="openD(2)">
+      <td style="font-size:11px;color:var(--fa)">1</td>
+      <td><span class="cln">EDEN Renewables India LLP</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-gp">Gaps Present</span></td><td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">125d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(10)">
+      <td style="font-size:11px;color:var(--fa)">2</td>
+      <td><span class="cln">Berkman India</span></td>
+      <td style="color:var(--mu)" title="Cost is higher than competitors">Cost is higher than competitors</td>
+      <td><span class="chip c-gp">Gaps Present</span></td><td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">63d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(14)">
+      <td style="font-size:11px;color:var(--fa)">3</td>
+      <td><span class="cln">Fortis Healthcare</span></td>
+      <td style="color:var(--mu)" title="Other">Other</td>
+      <td><span class="chip c-gp">Gaps Present</span></td><td><span class="chip" style="background:#fff8ec;color:#7a4a00;border:1px solid #f0c060">43d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(17)">
+      <td style="font-size:11px;color:var(--fa)">4</td>
+      <td><span class="cln">OP Singhania &amp; Co.</span></td>
+      <td style="color:var(--mu)" title="Management Decision">Management Decision</td>
+      <td><span class="chip c-gp">Gaps Present</span></td><td><span class="chip" style="background:#eaf7f0;color:#165c35;border:1px solid #7ecba0">2d</span></td><td><span class="chip c-ns">No Signal</span></td>
+    </tr><tr onclick="openD(18)">
+      <td style="font-size:11px;color:var(--fa)">5</td>
+      <td><span class="cln">Uniliv Realty LLP</span></td>
+      <td style="color:var(--mu)" title="Management Decision">Management Decision</td>
+      <td><span class="chip c-gp">Gaps Present</span></td><td><span class="chip" style="background:#eaf7f0;color:#165c35;border:1px solid #7ecba0">0d</span></td><td><span class="chip c-ns">No Signal</span></td>
+    </tr></tbody></table>
+      <div class="pg"><span class="pi" id="sp-i">1–5 of 5</span><div class="pc"><button class="pbtn" id="sp-p" onclick="spC(-1)" disabled="">←</button><div id="sp-n" style="display:flex;gap:3px"><button class="pbtn on" onclick="spGoPage(0)">1</button></div><button class="pbtn" id="sp-nx" onclick="spC(1)" disabled="">→</button></div></div>
+    </div>
+  </div>
+
+  <!-- DEAD-ZONE GAPS -->
+  <div class="view" id="view-gap">
+    <div class="kr k4">
+      <div class="kpi kd"><div class="kl">Longest gap</div><div class="kv" id="gpmax">512d</div><div class="ks" id="gpmaxco">Lux Industries Private Limited</div></div>
+      <div class="kpi kd"><div class="kl">Exceed 15d</div><div class="kv" id="gp15">15</div><div class="ks" id="gp15p">79% of leads</div></div>
+      <div class="kpi kb"><div class="kl">31–60d band</div><div class="kv" id="gpband">4</div><div class="ks">leads</div></div>
+      <div class="kpi kc"><div class="kl">Within 15d</div><div class="kv" id="gpok">4</div><div class="ks">Healthy range</div></div>
+    </div>
+    <div class="c2" style="margin-bottom:13px">
+      <div class="card"><div class="ch"><span class="ct">Gap distribution</span></div><div class="gb" id="gapBars2" style="margin-top:6px"><div class="gr"><span class="gl">0–15d</span>
+      <div class="gt"><div class="gf" style="width:21%;background:#a8d8b4">
+        <span class="gbn" style="color:#165c35">4 leads</span>
+        <span class="gbp" style="color:#165c35">21%</span>
+      </div></div></div><div class="gr"><span class="gl">16–30d</span>
+      <div class="gt"><div class="gf" style="width:5%;background:#fad08a">
+        <span class="gbn" style="color:#7a4a00">1 lead</span>
+        <span class="gbp" style="color:#7a4a00">5%</span>
+      </div></div></div><div class="gr"><span class="gl">31–60d</span>
+      <div class="gt"><div class="gf" style="width:21%;background:#f0a898">
+        <span class="gbn" style="color:#7a1e10">4 leads</span>
+        <span class="gbp" style="color:#7a1e10">21%</span>
+      </div></div></div><div class="gr"><span class="gl">61–120d</span>
+      <div class="gt"><div class="gf" style="width:37%;background:#e8aaaa">
+        <span class="gbn" style="color:#7a1e10">7 leads</span>
+        <span class="gbp" style="color:#7a1e10">37%</span>
+      </div></div></div><div class="gr"><span class="gl">120d+</span>
+      <div class="gt"><div class="gf" style="width:16%;background:#c0304a">
+        <span class="gbn" style="color:#fff">3 leads</span>
+        <span class="gbp" style="color:#fff">16%</span>
+      </div></div></div></div></div>
+      <div class="card"><div class="ch"><span class="ct">Gap highlights</span></div><div id="gpHL"><div style="border-left:3px solid var(--rd);padding-left:12px;margin-bottom:14px">
+      <div style="font-size:22px;font-weight:300;font-family:var(--mo);color:var(--rd)">512d</div>
+      <div style="font-size:11px;color:var(--fa);line-height:1.5">Longest gap</div>
+    </div><div style="border-left:3px solid var(--am);padding-left:12px;margin-bottom:14px">
+      <div style="font-size:22px;font-weight:300;font-family:var(--mo);color:var(--am)">136d</div>
+      <div style="font-size:11px;color:var(--fa);line-height:1.5">2nd longest — Sumadhura Workship 3</div>
+    </div><div style="border-left:3px solid var(--st);padding-left:12px;margin-bottom:14px">
+      <div style="font-size:22px;font-weight:300;font-family:var(--mo);color:var(--st)">84d</div>
+      <div style="font-size:11px;color:var(--fa);line-height:1.5">Mean gap</div>
+    </div><div style="border-left:3px solid var(--gn);padding-left:12px;margin-bottom:14px">
+      <div style="font-size:22px;font-weight:300;font-family:var(--mo);color:var(--gn)">63d</div>
+      <div style="font-size:11px;color:var(--fa);line-height:1.5">Median gap</div>
+    </div></div></div>
+    </div>
+    <div class="tp">
+      <div class="th"><div class="ttr"><span class="tt">All leads — longest gap first</span><span class="thi">Click row for detail</span></div></div>
+      <table><thead><tr><th style="width:36px">#</th><th style="width:162px">Company</th><th>Cancelled reason</th><th style="width:60px">Gap</th><th style="width:100px">Sprint quality</th><th style="width:115px">Recovery signal</th></tr></thead><tbody id="gptbl"><tr onclick="openD(0)">
+      <td style="font-size:11px;color:var(--fa)">1</td>
+      <td><span class="cln">Lux Industries Private Limited</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">512d</span></td><td><span class="chip c-co">Complete</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(1)">
+      <td style="font-size:11px;color:var(--fa)">2</td>
+      <td><span class="cln">Sumadhura Workship 3</span></td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">136d</span></td><td><span class="chip c-co">Complete</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(2)">
+      <td style="font-size:11px;color:var(--fa)">3</td>
+      <td><span class="cln">EDEN Renewables India LLP</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">125d</span></td><td><span class="chip c-gp">Gaps Present</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(4)">
+      <td style="font-size:11px;color:var(--fa)">4</td>
+      <td><span class="cln">Kaizen Group</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">95d</span></td><td><span class="chip c-co">Complete</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(3)">
+      <td style="font-size:11px;color:var(--fa)">5</td>
+      <td><span class="cln">Purbasha Group</span></td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">82d</span></td><td><span class="chip c-co">Complete</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(8)">
+      <td style="font-size:11px;color:var(--fa)">6</td>
+      <td><span class="cln">PwC- Experience Center</span></td>
+      <td style="color:var(--mu)" title="Management Decision">Management Decision</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">82d</span></td><td><span class="chip c-co">Complete</span></td><td><span class="chip c-ns">No Signal</span></td>
+    </tr><tr onclick="openD(6)">
+      <td style="font-size:11px;color:var(--fa)">7</td>
+      <td><span class="cln">Neolitezkw Lightings Ltd.</span></td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">70d</span></td><td><span class="chip c-co">Complete</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(7)">
+      <td style="font-size:11px;color:var(--fa)">8</td>
+      <td><span class="cln">Delphi Towers (ORD Towers)</span></td>
+      <td style="color:var(--mu)" title="Scope is only a small part of entire project">Scope is only a small part of entire project</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">70d</span></td><td><span class="chip c-co">Complete</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(9)">
+      <td style="font-size:11px;color:var(--fa)">9</td>
+      <td><span class="cln">DMC Gardens and Promoters LLP</span></td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">65d</span></td><td><span class="chip c-co">Complete</span></td><td><span class="chip c-ns">No Signal</span></td>
+    </tr><tr onclick="openD(10)">
+      <td style="font-size:11px;color:var(--fa)">10</td>
+      <td><span class="cln">Berkman India</span></td>
+      <td style="color:var(--mu)" title="Cost is higher than competitors">Cost is higher than competitors</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">63d</span></td><td><span class="chip c-gp">Gaps Present</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr></tbody></table>
+      <div class="pg"><span class="pi" id="gp-i">1–10 of 19</span><div class="pc"><button class="pbtn" id="gp-p" onclick="gpC(-1)" disabled="">←</button><div id="gp-n" style="display:flex;gap:3px"><button class="pbtn on" onclick="gpGoPage(0)">1</button><button class="pbtn" onclick="gpGoPage(1)">2</button></div><button class="pbtn" id="gp-nx" onclick="gpC(1)">→</button></div></div>
+    </div>
+  </div>
+
+  <!-- RECOVERY SIGNALS -->
+  <div class="view" id="view-signal">
+    <div class="kr k4">
+      <div class="kpi kb"><div class="kl">Signal present</div><div class="kv" id="sgpres">14</div><div class="ks">of leads</div></div>
+      <div class="kpi kc"><div class="kl">No signal</div><div class="kv" id="sgnone">5</div><div class="ks">Correct exits</div></div>
+      <div class="kpi kd"><div class="kl">Cost signal ignored</div><div class="kv" id="sgcost">6</div><div class="ks">Flagged, not resolved</div></div>
+      <div class="kpi kb"><div class="kl">Follow-up collapse</div><div class="kv" id="sgfu">4</div><div class="ks">Silent post engagement</div></div>
+    </div>
+    <div class="c2" style="margin-bottom:13px">
+      <div class="card">
+        <div class="ch"><span class="ct">Signal type breakdown</span></div>
+        <div id="c-sig" style="width:100%;height:170px;padding-top:4px"></div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:6px;flex:1;background:var(--fo);border-radius:6px;padding:6px 10px">
+            <span style="width:8px;height:8px;border-radius:2px;background:#1a3d6e;flex-shrink:0"></span>
+            <span style="font-size:11px;color:var(--mu);flex:1">Follow-up collapse</span>
+            <span style="font-size:13px;font-weight:600;color:var(--nv);font-family:var(--mo)" id="sgfuv">4</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex:1;background:var(--fo);border-radius:6px;padding:6px 10px">
+            <span style="width:8px;height:8px;border-radius:2px;background:#c47800;flex-shrink:0"></span>
+            <span style="font-size:11px;color:var(--mu);flex:1">Cost / competitive</span>
+            <span style="font-size:13px;font-weight:600;color:var(--nv);font-family:var(--mo)" id="sgcosv">6</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex:1;background:var(--fo);border-radius:6px;padding:6px 10px">
+            <span style="width:8px;height:8px;border-radius:2px;background:#9e2020;flex-shrink:0"></span>
+            <span style="font-size:11px;color:var(--mu);flex:1">Scope / internal</span>
+            <span style="font-size:13px;font-weight:600;color:var(--nv);font-family:var(--mo)" id="sgcuv">4</span>
+          </div>
+        </div>
+      </div>
+      <div class="card"><div class="ch"><span class="ct">No signal — external / correct exits</span></div><p style="font-size:12px;color:var(--mu);margin-bottom:11px;line-height:1.65">Outcomes externally driven or correct management decisions — no intervention signal existed.</p><div id="sgnoneList"><div style="padding:8px 0;border-bottom:1px solid var(--bd2);cursor:pointer" onclick="openD(8)">
+      <div style="font-size:12px;font-weight:500;color:var(--tx2)">PwC- Experience Center</div>
+      <div style="font-size:11px;color:var(--mu);line-height:1.5;margin-top:2px">Last sprint 2026-03-13 by Mayank Kumar Singh: "As per the first cut submission of the design deck intent, RFP will be shared to us."</div>
+    </div><div style="padding:8px 0;border-bottom:1px solid var(--bd2);cursor:pointer" onclick="openD(9)">
+      <div style="font-size:12px;font-weight:500;color:var(--tx2)">DMC Gardens and Promoters LLP</div>
+      <div style="font-size:11px;color:var(--mu);line-height:1.5;margin-top:2px">Last sprint 2026-04-10 by Sudeeti Chaturvedi: "Client has to internally align on space and finalise it. Kept on Hold until 17th Apr"</div>
+    </div><div style="padding:8px 0;border-bottom:1px solid var(--bd2);cursor:pointer" onclick="openD(16)">
+      <div style="font-size:12px;font-weight:500;color:var(--tx2)">SocioClout</div>
+      <div style="font-size:11px;color:var(--mu);line-height:1.5;margin-top:2px">Last sprint 2026-05-18 by Chitransh Dang: "Myself, Payal and Farhan met them again to understand the scope and we got to know their timeline is very quick like 30 …"</div>
+    </div><div style="padding:8px 0;border-bottom:1px solid var(--bd2);cursor:pointer" onclick="openD(17)">
+      <div style="font-size:12px;font-weight:500;color:var(--tx2)">OP Singhania &amp; Co.</div>
+      <div style="font-size:11px;color:var(--mu);line-height:1.5;margin-top:2px">Only priority/status flags — no descriptive sprint entries.</div>
+    </div><div style="padding:8px 0;border-bottom:1px solid var(--bd2);cursor:pointer" onclick="openD(18)">
+      <div style="font-size:12px;font-weight:500;color:var(--tx2)">Uniliv Realty LLP</div>
+      <div style="font-size:11px;color:var(--mu);line-height:1.5;margin-top:2px">No sprint data.</div>
+    </div></div></div>
+    </div>
+    <div class="tp">
+      <div class="th">
+        <div class="ttr"><span class="tt">Signal present leads</span><span class="thi">Click row for detail</span></div>
+        <div class="tf" id="sgfbtns">
+          <button class="fbtn on" onclick="setSgF(&#39;all&#39;,this)">All</button>
+          <button class="fbtn" onclick="setSgF(&#39;followup&#39;,this)">Follow-up</button>
+          <button class="fbtn" onclick="setSgF(&#39;cost&#39;,this)">Cost</button>
+          <button class="fbtn" onclick="setSgF(&#39;competitor&#39;,this)">Scope</button>
+        </div>
+      </div>
+      <table><thead><tr><th style="width:36px">#</th><th style="width:158px">Company</th><th style="width:130px">Signal type</th><th>Where signal appeared</th><th style="width:60px">Gap</th><th style="width:108px">Reason quality</th></tr></thead><tbody id="sgtbl"><tr onclick="openD(0)">
+      <td style="font-size:11px;color:var(--fa)">1</td>
+      <td><span class="cln">Lux Industries Private Limited</span></td>
+      <td><span class="chip" style="background:#eaf0f8;color:#1a3d6e;border:1px solid #1a3d6e30">Follow-up collapse</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Last sprint 2024-09-25 by Mayank Kumar Singh: " 24.09.="" tue="" |="" ob="" premium="" project="" deck="" is="" been="" shared="" on="" tue.="" client="" will="" get="" back="" as="" per="" his="" liking="" and="" interest.="" we="" will…""="">Last sprint 2024-09-25 by Mayank Kumar Singh: "24.09. Tue | OB Premium Project deck is been shared on Tue. Client will get back as per his liking and interest. We will…"</td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">512d</span></td><td><span class="chip c-ac">Accurate</span></td>
+    </tr><tr onclick="openD(1)">
+      <td style="font-size:11px;color:var(--fa)">2</td>
+      <td><span class="cln">Sumadhura Workship 3</span></td>
+      <td><span class="chip" style="background:#eaf0f8;color:#1a3d6e;border:1px solid #1a3d6e30">Follow-up collapse</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Last sprint 2026-01-27 by Sudeeti Chaturvedi: " project="" put="" on="" hold="" as="" the="" space="" is="" not="" finalised="" yet""="">Last sprint 2026-01-27 by Sudeeti Chaturvedi: "Project put on hold as the space is not finalised yet"</td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">136d</span></td><td><span class="chip c-ac">Accurate</span></td>
+    </tr><tr onclick="openD(2)">
+      <td style="font-size:11px;color:var(--fa)">3</td>
+      <td><span class="cln">EDEN Renewables India LLP</span></td>
+      <td><span class="chip" style="background:#eaf0f8;color:#1a3d6e;border:1px solid #1a3d6e30">Follow-up collapse</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Only priority/status flags — no descriptive sprint entries.">Only priority/status flags — no descriptive sprint entries.</td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">125d</span></td><td><span class="chip c-ac">Accurate</span></td>
+    </tr><tr onclick="openD(3)">
+      <td style="font-size:11px;color:var(--fa)">4</td>
+      <td><span class="cln">Purbasha Group</span></td>
+      <td><span class="chip" style="background:#fff8ec;color:#c47800;border:1px solid #c4780030">Cost / competitive loss</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Last sprint 2026-03-13 by Mayank Kumar Singh: " 13.03.fri:="" after="" making="" a="" few="" calls="" &="" pursuing="" for="" days,="" the="" client="" picked="" shared="" he's="" travelling="" out="" of="" city.="" he="" …""="">Last sprint 2026-03-13 by Mayank Kumar Singh: "13.03.Fri: After making a few calls &amp; pursuing for days, the client picked &amp; shared he's travelling out of the city. He …"</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">82d</span></td><td><span class="chip c-ac">Accurate</span></td>
+    </tr><tr onclick="openD(4)">
+      <td style="font-size:11px;color:var(--fa)">5</td>
+      <td><span class="cln">Kaizen Group</span></td>
+      <td><span class="chip" style="background:#fdf2f2;color:#9e2020;border:1px solid #9e202030">Scope / internal failure</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Last sprint 2026-02-25 by Mayank Kumar Singh: " vishal="" needs="" time="" to="" review="" &="" get="" back="" us="" on="" friday.="" cad="" is="" still="" awaiting.="" lease="" vs="" buy="" pending.""="">Last sprint 2026-02-25 by Mayank Kumar Singh: "Vishal needs time to review &amp; get back to us on Friday. CAD is still awaiting. Lease vs Buy is pending."</td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">95d</span></td><td><span class="chip c-ac">Accurate</span></td>
+    </tr><tr onclick="openD(5)">
+      <td style="font-size:11px;color:var(--fa)">6</td>
+      <td><span class="cln">Deccan Empire Pvt Ltd</span></td>
+      <td><span class="chip" style="background:#fff8ec;color:#c47800;border:1px solid #c4780030">Cost / competitive loss</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Last sprint 2026-03-31 by Sudeeti Chaturvedi: " client="" will="" revert="" on="" design="" fee="" by="" 1st="" week="" of="" april""="">Last sprint 2026-03-31 by Sudeeti Chaturvedi: "Client will revert on design fee by 1st week of April"</td>
+      <td><span class="chip" style="background:#fff8ec;color:#7a4a00;border:1px solid #f0c060">43d</span></td><td><span class="chip c-nr">Needs Review</span></td>
+    </tr><tr onclick="openD(6)">
+      <td style="font-size:11px;color:var(--fa)">7</td>
+      <td><span class="cln">Neolitezkw Lightings Ltd.</span></td>
+      <td><span class="chip" style="background:#fff8ec;color:#c47800;border:1px solid #c4780030">Cost / competitive loss</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Last sprint 2026-04-13 by Mayank Kumar Singh: " one-pager="" costing="" submitted="" on="" 24th="" march,="" client="" response="" awaiting.="" no="" update="" while="" connected="" from="" mobile="" &="" whatsapp="" fo…""="">Last sprint 2026-04-13 by Mayank Kumar Singh: "One-pager costing submitted on 24th March, client response awaiting. No update while connected from mobile &amp; WhatsApp fo…"</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">70d</span></td><td><span class="chip c-nr">Needs Review</span></td>
+    </tr><tr onclick="openD(7)">
+      <td style="font-size:11px;color:var(--fa)">8</td>
+      <td><span class="cln">Delphi Towers (ORD Towers)</span></td>
+      <td><span class="chip" style="background:#fdf2f2;color:#9e2020;border:1px solid #9e202030">Scope / internal failure</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Last sprint 2026-03-10 by Mayank Kumar Singh: " 06.03.fri:="" furniture="" layout="" +="" moodboard="" will="" be="" shared="" w="" the="" client.""="">Last sprint 2026-03-10 by Mayank Kumar Singh: "06.03.Fri: Furniture layout + Moodboard will be shared w the client."</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">70d</span></td><td><span class="chip c-nr">Needs Review</span></td>
+    </tr><tr onclick="openD(10)">
+      <td style="font-size:11px;color:var(--fa)">9</td>
+      <td><span class="cln">Berkman India</span></td>
+      <td><span class="chip" style="background:#fff8ec;color:#c47800;border:1px solid #c4780030">Cost / competitive loss</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Only priority/status flags — no descriptive sprint entries.">Only priority/status flags — no descriptive sprint entries.</td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">63d</span></td><td><span class="chip c-ac">Accurate</span></td>
+    </tr><tr onclick="openD(11)">
+      <td style="font-size:11px;color:var(--fa)">10</td>
+      <td><span class="cln">RLG GROUP</span></td>
+      <td><span class="chip" style="background:#fff8ec;color:#c47800;border:1px solid #c4780030">Cost / competitive loss</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="Last sprint 2026-04-09 by Mayank Kumar Singh: " 9th="" april-="" onboarding="" el="" sent="" along="" w="" the="" revised="" furniture="" layout.""="">Last sprint 2026-04-09 by Mayank Kumar Singh: "9th April- Onboarding EL sent along w the revised furniture layout."</td>
+      <td><span class="chip" style="background:#fff8ec;color:#7a4a00;border:1px solid #f0c060">46d</span></td><td><span class="chip c-ac">Accurate</span></td>
+    </tr></tbody></table>
+      <div class="pg"><span class="pi" id="sg-i">1–10 of 14</span><div class="pc"><button class="pbtn" id="sg-p" onclick="sgC(-1)" disabled="">←</button><div id="sg-n" style="display:flex;gap:3px"><button class="pbtn on" onclick="sgGoPage(0)">1</button><button class="pbtn" onclick="sgGoPage(1)">2</button></div><button class="pbtn" id="sg-nx" onclick="sgC(1)">→</button></div></div>
+    </div>
+  </div>
+
+  <!-- ALL LEADS -->
+  <div class="view" id="view-leads">
+    <div class="tp">
+      <div class="th">
+        <div class="ttr"><span class="tt">All leads</span><span class="thi">Click row for full story + sprint log</span></div>
+        <div class="tf">
+          <button class="fbtn on" onclick="setLF(&#39;all&#39;,this)">All</button>
+          <button class="fbtn" onclick="setLF(&#39;nr&#39;,this)">Needs Review</button>
+          <button class="fbtn" onclick="setLF(&#39;sp&#39;,this)">Signal Present</button>
+          <button class="fbtn" onclick="setLF(&#39;gap15&#39;,this)">Gap &gt;15d</button>
+        </div>
+      </div>
+      <table><thead><tr><th style="width:36px">#</th><th style="width:150px">Company</th><th style="width:44px">Code</th><th>Cancelled reason</th><th style="width:104px">Reason quality</th><th style="width:96px">Sprint quality</th><th style="width:58px">Gap</th><th style="width:112px">Recovery signal</th></tr></thead><tbody id="ltbl"><tr onclick="openD(0)">
+      <td style="font-size:11px;color:var(--fa)">1</td>
+      <td><span class="cln">Lux Industries Private Limited</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">5017</td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">512d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(1)">
+      <td style="font-size:11px;color:var(--fa)">2</td>
+      <td><span class="cln">Sumadhura Workship 3</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6073</td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">136d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(2)">
+      <td style="font-size:11px;color:var(--fa)">3</td>
+      <td><span class="cln">EDEN Renewables India LLP</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6125</td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip c-gp">Gaps Present</span></td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">125d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(3)">
+      <td style="font-size:11px;color:var(--fa)">4</td>
+      <td><span class="cln">Purbasha Group</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6126</td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">82d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(4)">
+      <td style="font-size:11px;color:var(--fa)">5</td>
+      <td><span class="cln">Kaizen Group</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6132</td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#1a0808;color:#ff9999;border:1px solid #7a1e10">95d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(5)">
+      <td style="font-size:11px;color:var(--fa)">6</td>
+      <td><span class="cln">Deccan Empire Pvt Ltd</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6181</td>
+      <td style="color:var(--mu)" title="Other">Other</td>
+      <td><span class="chip c-nr">Needs Review</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#fff8ec;color:#7a4a00;border:1px solid #f0c060">43d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(6)">
+      <td style="font-size:11px;color:var(--fa)">7</td>
+      <td><span class="cln">Neolitezkw Lightings Ltd.</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6191</td>
+      <td style="color:var(--mu)" title="Client not responding">Client not responding</td>
+      <td><span class="chip c-nr">Needs Review</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">70d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(7)">
+      <td style="font-size:11px;color:var(--fa)">8</td>
+      <td><span class="cln">Delphi Towers (ORD Towers)</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6195</td>
+      <td style="color:var(--mu)" title="Scope is only a small part of entire project">Scope is only a small part of entire project</td>
+      <td><span class="chip c-nr">Needs Review</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">70d</span></td><td><span class="chip c-sp">Signal Present</span></td>
+    </tr><tr onclick="openD(8)">
+      <td style="font-size:11px;color:var(--fa)">9</td>
+      <td><span class="cln">PwC- Experience Center</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6200</td>
+      <td style="color:var(--mu)" title="Management Decision">Management Decision</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">82d</span></td><td><span class="chip c-ns">No Signal</span></td>
+    </tr><tr onclick="openD(9)">
+      <td style="font-size:11px;color:var(--fa)">10</td>
+      <td><span class="cln">DMC Gardens and Promoters LLP</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">6226</td>
+      <td style="color:var(--mu)" title="Client cancelled the project">Client cancelled the project</td>
+      <td><span class="chip c-ac">Accurate</span></td><td><span class="chip c-co">Complete</span></td>
+      <td><span class="chip" style="background:#fdf2f2;color:#7a1e10;border:1px solid #e8aaaa">65d</span></td><td><span class="chip c-ns">No Signal</span></td>
+    </tr></tbody></table>
+      <div class="pg"><span class="pi" id="lp-i">1–10 of 19</span><div class="pc"><button class="pbtn" id="lp-p" onclick="lpC(-1)" disabled="">←</button><div id="lp-n" style="display:flex;gap:3px"><button class="pbtn on" onclick="lpGoPage(0)">1</button><button class="pbtn" onclick="lpGoPage(1)">2</button></div><button class="pbtn" id="lp-nx" onclick="lpC(1)">→</button></div></div>
+    </div>
+  </div>
+
+  <!-- GLOSSARY -->
+  <div class="view" id="view-glossary"><div style="max-width:840px">
+  <div style="background:var(--nv);border-radius:12px;padding:22px 26px;margin-bottom:18px;color:#fff">
+    <div style="font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:7px">Dashboard Guide</div>
+    <div style="font-size:17px;font-weight:600;margin-bottom:7px">How to read this dashboard</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.72);line-height:1.75">Compares what the <strong style="color:#fff">sales team logged as the cancellation reason</strong> against what the <strong style="color:#fff">sprint trail actually shows</strong>. The goal is to find patterns, improve data quality, and identify where a different action could have changed the outcome.</div>
+  </div>
+  
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:13px">
+      <div style="background:var(--fo);padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;font-weight:600;color:var(--nv)">Reason Quality</span>
+        <span style="font-size:11px;color:var(--mu)">Does the logged reason match what the sprint trail shows?</span>
+      </div>
+      <div style="padding:4px 0">
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 18px;border-bottom:1px solid var(--bd2)">
+          <span class="chip c-ac" style="flex-shrink:0;margin-top:2px">Accurate</span>
+          <div style="font-size:12px;color:var(--mu);line-height:1.65">The reason logged matches what the sprint notes show. Example: "Client not responding" with a sprint trail showing multiple unanswered calls and no engagement.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 18px">
+          <span class="chip c-nr" style="flex-shrink:0;margin-top:2px">Needs Review</span>
+          <div style="font-size:12px;color:var(--mu);line-height:1.65">The reason doesn't match the sprint trail — or gives zero information. Examples: "Other" (no signal), "Cost higher than qualification" but client was approving layouts the day before, "Timeline Misalignment" but comment reveals a legal scope issue. Not a blame tag — flags where data needs a second look.</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:13px">
+      <div style="background:var(--fo);padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;font-weight:600;color:var(--nv)">Sprint Quality</span>
+        <span style="font-size:11px;color:var(--mu)">Is the sprint trail complete enough to understand what happened?</span>
+      </div>
+      <div style="padding:4px 0">
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 18px;border-bottom:1px solid var(--bd2)">
+          <span class="chip c-co" style="flex-shrink:0;margin-top:2px">Complete</span>
+          <div style="font-size:12px;color:var(--mu);line-height:1.65">Meaningful entries with descriptions — CBM notes, follow-up logs, meeting outcomes. You can read the entire lead journey.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 18px">
+          <span class="chip c-gp" style="flex-shrink:0;margin-top:2px">Gaps Present</span>
+          <div style="font-size:12px;color:var(--mu);line-height:1.65">Missing entries, long silences, or only priority flags with no descriptions. Doesn't mean nothing happened — means it wasn't logged, so we can't learn from it.</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:13px">
+      <div style="background:var(--fo);padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;font-weight:600;color:var(--nv)">Recovery Signal</span>
+        <span style="font-size:11px;color:var(--mu)">Was there a moment where a different action could have changed the outcome?</span>
+      </div>
+      <div style="padding:4px 0">
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 18px;border-bottom:1px solid var(--bd2)">
+          <span class="chip c-sp" style="flex-shrink:0;margin-top:2px">Signal Present</span>
+          <div style="font-size:12px;color:var(--mu);line-height:1.65">A visible intervention point existed — cost concern never resolved, client said "I'll call back" and team never followed up, proposal sent with no follow-up sprint. Doesn't mean the loss was definitely avoidable — it means the data shows a moment worth reviewing.</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 18px">
+          <span class="chip c-ns" style="flex-shrink:0;margin-top:2px">No Signal</span>
+          <div style="font-size:12px;color:var(--mu);line-height:1.65">Outcome driven by external factors — BTS construction, legal scope issue, operational infeasibility. These are correct exits. Decision-making was sound.</div>
+        </div>
+      </div>
+    </div>
+  <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:13px">
+    <div style="background:var(--fo);padding:12px 18px;border-bottom:1px solid var(--bd)"><span style="font-size:12px;font-weight:600;color:var(--nv)">Dead-Zone Gap</span><span style="font-size:11px;color:var(--mu);margin-left:10px">Days between last sprint and cancellation date</span></div>
+    <div style="padding:14px 18px">
+      <div style="font-size:12px;color:var(--mu);margin-bottom:12px;line-height:1.7">Most direct measure of follow-up discipline. A high gap = lead was mentally dropped before it was formally cancelled.</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <div style="background:#eaf7f0;border:1px solid #7ecba0;border-radius:8px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:300;font-family:var(--mo);color:#1a6e42">0–15d</div><div style="font-size:11px;color:#1a6e42;margin-top:3px;font-weight:500">Healthy</div><div style="font-size:11px;color:var(--mu);margin-top:3px;line-height:1.5">Lead was actively managed close to cancellation</div></div>
+        <div style="background:#fff8ec;border:1px solid #f0c060;border-radius:8px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:300;font-family:var(--mo);color:#c47800">16–60d</div><div style="font-size:11px;color:#c47800;margin-top:3px;font-weight:500">Attention needed</div><div style="font-size:11px;color:var(--mu);margin-top:3px;line-height:1.5">Follow-up cadence broke down — review why contact stopped</div></div>
+        <div style="background:#fdf2f2;border:1px solid #e8aaaa;border-radius:8px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:300;font-family:var(--mo);color:#9e2020">60d+</div><div style="font-size:11px;color:#9e2020;margin-top:3px;font-weight:500">Zombie lead</div><div style="font-size:11px;color:var(--mu);margin-top:3px;line-height:1.5">Lead abandoned in pipeline — formal closure delayed by months</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:13px">
+    <div style="background:var(--fo);padding:12px 18px;border-bottom:1px solid var(--bd)"><span style="font-size:12px;font-weight:600;color:var(--nv)">How to use</span></div>
+    <div style="padding:14px 18px;display:flex;flex-direction:column;gap:13px">
+      
+        <div style="display:flex;align-items:flex-start;gap:13px">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--nv);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">1</div>
+          <div><div style="font-size:12.5px;font-weight:500;color:var(--tx2);margin-bottom:2px">Use the left panel filters to slice the data</div><div style="font-size:12px;color:var(--mu);line-height:1.6">Filter by Stage, City, Channel, Cancelled By, Reason Quality or any combination. Every chart and table updates instantly.</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:13px">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--nv);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">2</div>
+          <div><div style="font-size:12.5px;font-weight:500;color:var(--tx2);margin-bottom:2px">Click any company name to open the full lead story</div><div style="font-size:12px;color:var(--mu);line-height:1.6">Side panel shows the full sprint log — every entry, date, who logged it, and what was said.</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:13px">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--nv);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">3</div>
+          <div><div style="font-size:12.5px;font-weight:500;color:var(--tx2);margin-bottom:2px">Insights tab surfaces the most important patterns</div><div style="font-size:12px;color:var(--mu);line-height:1.6">Insights update based on your active filters — filtering to a stage shows patterns specifically for that stage.</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:13px">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--nv);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">4</div>
+          <div><div style="font-size:12.5px;font-weight:500;color:var(--tx2);margin-bottom:2px">⚙ button top right — View policy</div><div style="font-size:12px;color:var(--mu);line-height:1.6">Toggle tabs and charts on or off to tailor the view for leadership vs internal team.</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:13px">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--nv);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">5</div>
+          <div><div style="font-size:12.5px;font-weight:500;color:var(--tx2);margin-bottom:2px">Data refreshes every 10 minutes automatically</div><div style="font-size:12px;color:var(--mu);line-height:1.6">Pulls directly from your Google Sheet. New cancellations appear within 10 minutes — no manual action needed.</div></div>
+        </div>
+    </div>
+  </div>
+  </div></div>
+
+</div><!-- end main -->
+</div><!-- end shell -->
+<!-- DRAWER -->
+<div class="dbk" id="dbk" onclick="closeD()"></div>
+<div class="dr2" id="dr2">
+  <button class="dx" onclick="closeD()">✕</button>
+  <div class="dtop"><div class="dcode" id="dcode"></div><div class="dco" id="dco"></div><div class="dchips" id="dchips"></div></div>
+  <div class="dbody">
+    <div class="df"><div class="dfl">Cancelled reason</div><div class="dfv" id="drsn"></div></div>
+    <div class="df"><div class="dfl">Comment as logged</div><div class="dfv m" id="dcmt"></div></div>
+    <div class="mgrid">
+      <div><div class="dfl">City</div><div class="dfv" id="dcity"></div></div>
+      <div><div class="dfl">Area (sqft)</div><div class="dfv" id="darea"></div></div>
+      <div><div class="dfl">Channel</div><div class="dfv" id="dchan2"></div></div>
+    </div>
+    <div class="df"><div class="dfl">Stage · Cancelled by</div><div class="dfv" id="dby"></div></div>
+    <div class="ddiv"></div>
+    <div class="df"><div class="dfl">Dead-zone gap</div><div id="dgap"></div></div>
+    <div class="ddiv"></div>
+    <div class="rcb2"><div class="rcbl">Reason quality note</div><div class="rcbv" id="droot"></div></div>
+    <div class="sgb" id="dsgb"><div class="sgbl">Recovery signal — where it appeared</div><div class="sgbv" id="dsgw"></div></div>
+    <div class="ddiv"></div>
+    <div class="dfl" style="margin-bottom:8px">Sprint log</div>
+    <div class="slog" id="dslog"></div>
+  </div>
+</div>
+
+<!-- MAIN MODAL (Connection + Policy) -->
+<div class="moverlay" id="moverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="mhead">
+      <button class="mcl" onclick="closeModal()">✕</button>
+      <h3 id="modalTitle">Settings</h3>
+      <p id="modalSub">Configure data source and view policy</p>
+    </div>
+    <div class="mbody">
+      <div class="pol-tabs">
+        <div class="pol-tab on" id="ptab-conn" onclick="switchPolTab(&#39;conn&#39;)">🔌 Data source</div>
+        <div class="pol-tab" id="ptab-policy" onclick="switchPolTab(&#39;policy&#39;)">⚙ View policy</div>
+      </div>
+
+      <!-- CONNECTION PANEL -->
+      <div class="pol-panel on" id="ppanel-conn">
+        <div class="src-tabs">
+          <div class="src-tab on" onclick="switchSrc(&#39;gsheets&#39;,this)">Google Sheets</div>
+          <div class="src-tab" onclick="switchSrc(&#39;redash&#39;,this)">Redash</div>
+          <div class="src-tab" onclick="switchSrc(&#39;api&#39;,this)">Custom API</div>
+        </div>
+        <!-- GOOGLE SHEETS -->
+        <div class="src-panel on" id="src-gsheets">
+          <div class="conn-steps">
+            <div class="conn-step"><span class="step-n">1</span><span>Open your Google Sheet → <strong>Extensions → Apps Script</strong></span></div>
+            <div class="conn-step"><span class="step-n">2</span><span>Paste <strong>LCI_GoogleAppsScript.gs</strong> → set your <code style="background:var(--fo);padding:1px 5px;border-radius:3px;font-size:11px">SHEET_ID</code></span></div>
+            <div class="conn-step"><span class="step-n">3</span><span><strong>Deploy → New deployment</strong> → Web app → Execute as: Me → Access: Anyone</span></div>
+            <div class="conn-step"><span class="step-n">4</span><span>Copy the <strong>Web App URL</strong> ending in <code style="font-size:11px">/exec</code> and paste below</span></div>
+          </div>
+          <div class="frow"><label class="flbl">Apps Script Web App URL</label><input class="finp" id="gs-url" type="url" placeholder="https://script.google.com/macros/s/AKfycb…/exec"><span class="fhint">Must end in /exec</span></div>
+          <div class="frow"><label class="flbl">Auto-refresh</label><div class="int-row"><span class="int-lbl">Every</span><input class="int-num" id="gs-hr" type="number" min="0" max="23" value="0"> hr <input class="int-num" id="gs-min" type="number" min="0" max="59" value="10"> min</div></div>
+          <div class="test-res" id="gs-test"></div>
+          <div class="cta-row">
+            <button class="btn-p" onclick="connect(&#39;gsheets&#39;)">Connect &amp; load</button>
+            <button class="btn-s" onclick="testConn(&#39;gsheets&#39;)">Test connection</button>
+            <button class="btn-danger" onclick="disconnect()" id="btnDisc" style="">Disconnect</button>
+          </div>
+          <div class="status-row" id="gs-status" style="display: flex;"><span id="gs-status-txt">✓ 19 leads loaded</span><span id="gs-status-time" style="color:var(--fa);font-family:var(--mo);font-size:11px">12:54:37 PM</span></div>
+        </div>
+        <!-- REDASH -->
+        <div class="src-panel" id="src-redash">
+          <div class="frow"><label class="flbl">Redash base URL</label><input class="finp" id="rd-url" type="url" placeholder="https://redash.yourcompany.com"></div>
+          <div class="frow"><label class="flbl">Leads query ID</label><input class="finp" id="rd-leads-id" type="number" placeholder="e.g. 142"></div>
+          <div class="frow"><label class="flbl">Sprint log query ID</label><input class="finp" id="rd-sprint-id" type="number" placeholder="e.g. 143"></div>
+          <div class="frow"><label class="flbl">API Key</label><input class="finp" id="rd-key" type="password" placeholder="Redash API key"></div>
+          <div class="frow"><label class="flbl">Auto-refresh</label><div class="int-row"><span class="int-lbl">Every</span><input class="int-num" id="rd-hr" type="number" min="0" max="23" value="0"> hr <input class="int-num" id="rd-min" type="number" min="0" max="59" value="15"> min</div></div>
+          <div class="test-res" id="rd-test"></div>
+          <div class="cta-row"><button class="btn-p" onclick="connect(&#39;redash&#39;)">Connect &amp; load</button><button class="btn-s" onclick="testConn(&#39;redash&#39;)">Test connection</button></div>
+        </div>
+        <!-- CUSTOM API -->
+        <div class="src-panel" id="src-api">
+          <div class="frow"><label class="flbl">API endpoint URL</label><input class="finp" id="api-url" type="url" placeholder="https://your-api.com/leads/cancelled"></div>
+          <div class="frow"><label class="flbl">Auth header (optional)</label><input class="finp" id="api-auth-key" placeholder="e.g. Authorization"></div>
+          <div class="frow"><label class="flbl">Auth value (optional)</label><input class="finp" id="api-auth-val" type="password" placeholder="e.g. Bearer token"></div>
+          <div class="frow"><label class="flbl">Auto-refresh</label><div class="int-row"><span class="int-lbl">Every</span><input class="int-num" id="api-hr" type="number" min="0" max="23" value="0"> hr <input class="int-num" id="api-min" type="number" min="0" max="59" value="15"> min</div></div>
+          <div class="test-res" id="api-test"></div>
+          <div class="cta-row"><button class="btn-p" onclick="connect(&#39;api&#39;)">Connect &amp; load</button><button class="btn-s" onclick="testConn(&#39;api&#39;)">Test connection</button></div>
+        </div>
+      </div>
+
+      <!-- POLICY PANEL -->
+      <div class="pol-panel" id="ppanel-policy">
+        <div style="font-size:12px;color:var(--mu);margin-bottom:16px;line-height:1.65">Toggle tabs and chart cards on or off. Hidden items are invisible to viewers — useful for tailoring the dashboard for leadership vs internal team.</div>
+        <!-- TABS -->
+        <div class="pol-section">
+          <div class="pol-sec-title">Navigation tabs</div>
+          <div id="pol-tab-rows"></div>
+        </div>
+        <!-- CARDS -->
+        <div class="pol-section">
+          <div class="pol-sec-title">Overview charts &amp; cards</div>
+          <div id="pol-card-rows"></div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button class="btn-p" onclick="applyPolicy();closeModal()">Apply &amp; close</button>
+          <button class="btn-s" onclick="resetPolicy()">Reset to default</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+let ALL_DATA=[], FILT=[], SRC_CFG=null, RTIMER=null;
+const AF={dFrom:null,dTo:null,reason:'',stage:'',channel:'',city:'',rq:'',rs:'',sq:'',gap:'',by:''};
+const PG=10;
+let rpD=[],rpP=0, spD=[],spP=0, gpD=[],gpP=0, sgD=[],sgP=0, lpD=[],lpP=0;
+const CH={};
+
+/* POLICY STATE — which tabs/cards are visible */
+const POLICY = {
+  tabs: {
+    'tab-overview':true,'tab-insights':true,'tab-reason':true,
+    'tab-sprint':true,'tab-gap':true,'tab-signal':true,
+    'tab-leads':true,'tab-glossary':true
+  },
+  cards: {
+    'kpi-total':true,'kpi-gap':true,'kpi-nr':true,'kpi-sp':true,'kpi-mg':true,
+    'card-reason-chart':true,'card-rq':true,'card-rs':true,
+    'card-gapbars':true,'card-funnel':true,
+    'card-channel':true,'card-byname':true
+  }
+};
+const TAB_LABELS={
+  'tab-overview':'Overview','tab-insights':'Insights','tab-reason':'By Reason',
+  'tab-sprint':'Sprint Quality','tab-gap':'Dead-Zone Gaps','tab-signal':'Recovery Signals',
+  'tab-leads':'All Leads','tab-glossary':'📖 Guide'
+};
+const CARD_LABELS={
+  'kpi-total':'KPI — Total cancelled','kpi-gap':'KPI — Avg dead-zone gap',
+  'kpi-nr':'KPI — Reason needs review','kpi-sp':'KPI — Signal present',
+  'kpi-mg':'KPI — Longest gap','card-reason-chart':'Chart — Cancelled reason bar',
+  'card-rq':'Chart — Reason quality donut','card-rs':'Chart — Recovery signal donut',
+  'card-gapbars':'Chart — Gap distribution','card-funnel':'Chart — Stage funnel',
+  'card-channel':'Chart — Loss by channel','card-byname':'Table — Cancelled by'
+};
+
+/* ═══════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════ */
+function cnt(arr,k){const o={};arr.forEach(d=>{const v=d[k]||'Unknown';o[v]=(o[v]||0)+1;});return o;}
+function topN(arr,k,n){return Object.entries(cnt(arr,k)).sort((a,b)=>b[1]-a[1]).slice(0,n);}
+function pct(a,b){return b?Math.round(a/b*100):0;}
+function avg(arr){return arr.length?Math.round(arr.reduce((a,b)=>a+b,0)/arr.length):0;}
+function gs(g){return g>90?{bg:'#1a0808',c:'#ff9999',b:'#7a1e10'}:g>60?{bg:'#fdf2f2',c:'#7a1e10',b:'#e8aaaa'}:g>15?{bg:'#fff8ec',c:'#7a4a00',b:'#f0c060'}:{bg:'#eaf7f0',c:'#165c35',b:'#7ecba0'};}
+function cRQ(v){return `<span class="chip ${v==='Accurate'?'c-ac':'c-nr'}">${v}</span>`;}
+function cSQ(v){return `<span class="chip ${v==='Complete'?'c-co':'c-gp'}">${v}</span>`;}
+function cRS(v){return `<span class="chip ${v==='No Signal'?'c-ns':'c-sp'}">${v}</span>`;}
+function gChip(g){const s=gs(g);return `<span class="chip" style="background:${s.bg};color:${s.c};border:1px solid ${s.b}">${g}d</span>`;}
+function st2(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+function dchart(id){if(CH[id]){CH[id].destroy();delete CH[id];}}
+const SO={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}};
+
+// Just ensure the canvas has an explicit height before Chart.js renders
+function sizeCanvas(id,h){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.style.height=h+'px';
+  el.height=h;
+}
+function stype(l){
+  if(l.rs==='No Signal')return'ns';
+  const w=((l.where||'')+(l.comment||'')+(l.reason||'')).toLowerCase();
+  if(w.includes('cost')||w.includes('budget')||w.includes('boq')||w.includes('price')||w.includes('competitor')||w.includes('vendor'))return'cost';
+  if(w.includes('scope')||w.includes('cad')||w.includes('legal')||w.includes('threshold'))return'competitor';
+  return'followup';
+}
+const SLBL={followup:'Follow-up collapse',cost:'Cost / competitive loss',competitor:'Scope / internal failure'};
+const SC={followup:'#1a3d6e',cost:'#c47800',competitor:'#9e2020'};
+const SBG={followup:'#eaf0f8',cost:'#fff8ec',competitor:'#fdf2f2'};
+
+/* ═══════════════════════════════════════════
+   POLICY FUNCTIONS
+═══════════════════════════════════════════ */
+function buildPolicyRows(){
+  // Tabs
+  const tr=document.getElementById('pol-tab-rows');
+  if(tr) tr.innerHTML=Object.entries(TAB_LABELS).map(([id,lbl])=>`
+    <div class="pol-row">
+      <div class="pol-info"><div class="pol-lbl">${lbl}</div></div>
+      <label class="tog"><input type="checkbox" id="pol-${id}" ${POLICY.tabs[id]?'checked':''}><span class="tog-sl"></span></label>
+    </div>`).join('');
+  // Cards
+  const cr=document.getElementById('pol-card-rows');
+  if(cr) cr.innerHTML=Object.entries(CARD_LABELS).map(([id,lbl])=>`
+    <div class="pol-row">
+      <div class="pol-info"><div class="pol-lbl">${lbl}</div></div>
+      <label class="tog"><input type="checkbox" id="pol-${id}" ${POLICY.cards[id]?'checked':''}><span class="tog-sl"></span></label>
+    </div>`).join('');
+}
+function applyPolicy(){
+  // Read toggles → save to POLICY
+  Object.keys(POLICY.tabs).forEach(id=>{
+    const el=document.getElementById('pol-'+id);
+    if(el) POLICY.tabs[id]=el.checked;
+  });
+  Object.keys(POLICY.cards).forEach(id=>{
+    const el=document.getElementById('pol-'+id);
+    if(el) POLICY.cards[id]=el.checked;
+  });
+  // Apply visibility to tabs
+  Object.entries(POLICY.tabs).forEach(([id,vis])=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('hidden-tab',!vis);
+  });
+  // Apply visibility to cards
+  Object.entries(POLICY.cards).forEach(([id,vis])=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.toggle('hidden-card',!vis);
+  });
+  // Save to localStorage
+  try{localStorage.setItem('lci_policy',JSON.stringify(POLICY));}catch(e){}
+}
+function resetPolicy(){
+  Object.keys(POLICY.tabs).forEach(k=>POLICY.tabs[k]=true);
+  Object.keys(POLICY.cards).forEach(k=>POLICY.cards[k]=true);
+  buildPolicyRows();
+  applyPolicy();
+}
+function loadSavedPolicy(){
+  try{
+    const s=localStorage.getItem('lci_policy');
+    if(s){
+      const p=JSON.parse(s);
+      if(p.tabs) Object.assign(POLICY.tabs,p.tabs);
+      if(p.cards) Object.assign(POLICY.cards,p.cards);
+      applyPolicy();
+    }
+  }catch(e){}
+}
+
+/* ═══════════════════════════════════════════
+   DROPDOWNS
+═══════════════════════════════════════════ */
+function buildDropdowns(){
+  const defs=[
+    {id:'ddR',key:'reason',ph:'All reasons'},
+    {id:'ddSt',key:'stage',ph:'All stages'},
+    {id:'ddCh',key:'channel',ph:'All channels'},
+    {id:'ddCi',key:'city',ph:'All cities'},
+    {id:'ddBy',key:'by',ph:'All'},
+  ];
+  defs.forEach(({id,key,ph})=>{
+    const el=document.getElementById(id);if(!el)return;
+    const cur=el.value;
+    const vals=[...new Set(ALL_DATA.map(d=>d[key]).filter(Boolean))].sort();
+    el.innerHTML=`<option value="">${ph}</option>`+
+      vals.map(v=>{
+        const n=FILT.filter(d=>d[key]===v).length;
+        return `<option value="${v.replace(/"/g,'&quot;')}"${cur===v?' selected':''}>${v} (${n})</option>`;
+      }).join('');
+    el.classList.toggle('active',!!el.value);
+  });
+  updateBadge();
+}
+function updateBadge(){
+  const n=[AF.reason,AF.stage,AF.channel,AF.city,AF.rq,AF.rs,AF.gap,AF.by,AF.sq]
+    .filter(v=>v!=='').length+(AF.dFrom?1:0);
+  const el=document.getElementById('actBadge');
+  if(el){el.style.display=n>0?'inline':'none';el.textContent=n+' active';}
+}
+
+/* ═══════════════════════════════════════════
+   FILTER
+═══════════════════════════════════════════ */
+function applyF(){
+  AF.reason  = document.getElementById('ddR')?.value  ||'';
+  AF.stage   = document.getElementById('ddSt')?.value ||'';
+  AF.channel = document.getElementById('ddCh')?.value ||'';
+  AF.city    = document.getElementById('ddCi')?.value ||'';
+  AF.rq      = document.getElementById('ddRQ')?.value ||'';
+  AF.rs      = document.getElementById('ddRS')?.value ||'';
+  AF.sq      = document.getElementById('ddSQ')?.value ||'';
+  AF.by      = document.getElementById('ddBy')?.value ||'';
+  AF.gap     = document.getElementById('ddG')?.value  ||'';
+  // Only read date inputs when custom mode is active — preset buttons set AF.dFrom/dTo directly
+  const customVisible = document.getElementById('customD')?.style.display !== 'none';
+  if(customVisible){
+    AF.dFrom = document.getElementById('dFrom')?.value||null;
+    AF.dTo   = document.getElementById('dTo')?.value  ||null;
+  }
+  // If "All" preset is active, ensure dates are cleared
+  const activePre = document.querySelector('.pb.on')?.dataset?.p;
+  if(activePre==='all'){ AF.dFrom=null; AF.dTo=null; }
+  ['ddRQ','ddRS','ddSQ','ddG'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.classList.toggle('active',!!el.value);
+  });
+  FILT=ALL_DATA.filter(d=>{
+    if(AF.dFrom&&d.cancelDate&&d.cancelDate<AF.dFrom)return false;
+    if(AF.dTo  &&d.cancelDate&&d.cancelDate>AF.dTo)  return false;
+    if(AF.reason  &&d.reason  !==AF.reason)  return false;
+    if(AF.stage   &&d.stage   !==AF.stage)   return false;
+    if(AF.channel &&d.channel !==AF.channel) return false;
+    if(AF.city    &&d.city    !==AF.city)    return false;
+    if(AF.rq      &&d.rq      !==AF.rq)     return false;
+    if(AF.rs      &&d.rs      !==AF.rs)     return false;
+    if(AF.sq      &&d.sq      !==AF.sq)     return false;
+    if(AF.by      &&d.by      !==AF.by)     return false;
+    if(AF.gap){const[lo,hi]=AF.gap.split('-').map(Number);if(d.gap<lo||d.gap>hi)return false;}
+    return true;
+  });
+  renderAll();
+}
+function clearAll(){
+  Object.assign(AF,{dFrom:null,dTo:null,reason:'',stage:'',channel:'',city:'',rq:'',rs:'',sq:'',gap:'',by:''});
+  ['ddR','ddSt','ddCh','ddCi','ddRQ','ddRS','ddSQ','ddG','ddBy'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.value='';el.classList.remove('active');}
+  });
+  document.querySelectorAll('.pb').forEach(b=>b.classList.remove('on'));
+  document.querySelector('.pb[data-p="all"]').classList.add('on');
+  document.getElementById('customD').style.display='none';
+  const df=document.getElementById('dFrom');const dt=document.getElementById('dTo');
+  if(df)df.value='';if(dt)dt.value='';
+  FILT=[...ALL_DATA];
+  renderAll();
+}
+function setPre(btn,val){
+  document.querySelectorAll('.pb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  if(val==='custom'){document.getElementById('customD').style.display='';return;}
+  document.getElementById('customD').style.display='none';
+  if(val==='all'){AF.dFrom=null;AF.dTo=null;}
+  else{const to=new Date(),from=new Date();from.setDate(from.getDate()-val);AF.dFrom=from.toISOString().slice(0,10);AF.dTo=to.toISOString().slice(0,10);}
+  applyF();
+}
+
+/* ═══════════════════════════════════════════
+   RENDER ALL — single source of truth
+   Always reads from FILT, rebuilds every tab
+═══════════════════════════════════════════ */
+function activeTab(){
+  const t=document.querySelector('.ntb.on');
+  return t?t.getAttribute('onclick').match(/sv\('(\w+)'/)?.[1]||'overview':'overview';
+}
+
+function renderAll(){
+  if(!ALL_DATA.length)return;
+  const D=FILT,T=D.length;
+  buildDropdowns();
+
+  // Nav counts — always update regardless of active tab
+  st2('nc-ov',T);
+  st2('nc-sp',D.filter(d=>d.sq==='Gaps Present').length);
+  st2('nc-gp',D.filter(d=>d.gap>15).length);
+  st2('nc-sg',D.filter(d=>d.rs==='Signal Present').length);
+  if(!T)return;
+
+  const nr =D.filter(d=>d.rq==='Needs Review').length;
+  const sp =D.filter(d=>d.rs==='Signal Present').length;
+  const ns =D.filter(d=>d.rs==='No Signal').length;
+  const gp =D.filter(d=>d.sq==='Gaps Present').length;
+  const co =D.filter(d=>d.sq==='Complete').length;
+  const avgGap=avg(D.map(d=>d.gap).filter(Boolean));
+  const maxL=[...D].sort((a,b)=>b.gap-a.gap)[0];
+
+  // KPIs & alert — always update
+  st2('kT',T);st2('kTs',`Leads · ${new Date().toLocaleDateString()}`);
+  st2('kG',avgGap+'d');st2('kGs',`Avg across ${T} leads`);
+  st2('kNR',`${nr}/${T}`);st2('kNRs',`${pct(nr,T)}% of total`);
+  st2('kSP',`${sp}/${T}`);
+  st2('kMG',(maxL?.gap||'—')+'d');st2('kMGs',maxL?.co||'—');
+  // RQ / RS card text — always update with filtered data
+  st2('rqc',T);st2('rqpct',pct(nr,T)+'%');st2('rqnr',nr);st2('rqac',T-nr);
+  st2('rsc',T);st2('rspct',pct(sp,T)+'%');st2('rsspv',sp);st2('rsnsv',ns);
+  document.getElementById('alertBar').style.display='flex';
+  document.getElementById('alertBar').className='ab amb';
+  document.getElementById('alertTxt').innerHTML=
+    `<strong>Live · ${T} leads:</strong> ${pct(nr,T)}% of reasons need review. `+
+    `${sp}/${T} losses show a recovery signal. Avg gap: ${avgGap}d.`;
+
+  // Non-chart data updates — always run (no canvas needed)
+  renderGapBars(D,'gapBars');renderGapBars(D,'gapBars2');
+  const stC=topN(D,'stage',6);const stMx=stC[0]?.[1]||1;
+  const stCols=['#1d3461','#2d6a9f','#1a7a4a','#c47800','#9e2020'];
+  document.getElementById('stageFunnel').innerHTML=stC.map(([st,n],i)=>
+    `<div class="fr"><div class="frl" title="${st}">${st}</div><div class="fb2"><div class="ff" style="width:${(n/stMx*100).toFixed(0)}%;background:${stCols[i]||'#aaa'}">${n}</div></div></div>`).join('');
+  renderInsights(D,T,nr,sp,gp,avgGap);
+  const byC=topN(D,'by',10);
+  document.getElementById('byBody').innerHTML=byC.map(([p,n],i)=>`
+    <tr><td style="color:var(--fa);font-weight:600;font-size:11px">${i+1}</td>
+    <td style="font-weight:500">${p}</td><td style="font-weight:600;color:var(--nv)">${n}</td>
+    <td><span style="font-weight:600;color:#2d6a9f;margin-right:5px">${pct(n,T)}%</span>
+      <span style="display:inline-block;width:50px;height:4px;background:var(--bd2);border-radius:2px;vertical-align:middle">
+        <span style="display:block;height:100%;width:${pct(n,T)}%;background:#2d6a9f;border-radius:2px"></span></span></td></tr>`).join('');
+  renderSprintV(D,gp,co);
+  renderSignalV(D,sp,ns);
+  renderReasonV(D);
+  renderGapV(D);
+  lpD=[...D];lpP=0;renderLT();
+
+  // Charts — only render for active tab, deferred so canvas is painted first
+  const tab=activeTab();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>renderChartsForTab(tab,D,T,nr,sp,ns,gp,co)));
+}
+
+/* ═══════════════════════════════════════════
+   PURE SVG/HTML CHARTS — zero dependencies
+   Works on Netlify, any browser, any device
+═══════════════════════════════════════════ */
+
+// Vertical bar chart — pure SVG, always renders
+// Vertical bar chart — pure SVG, fully data-driven sizing
+function drawBarV(id, items){
+  const el=document.getElementById(id); if(!el) return;
+  const n=items.length; if(!n) return;
+  const mx=Math.max(...items.map(i=>i.value),1);
+  const barW=Math.min(Math.max(Math.floor(340/n)-8,18),48);
+  const maxChars=Math.max(Math.floor(barW/5.5),6);
+  const pad={t:10,r:10,b:8,l:28};
+  const plotH=110;
+  function getLines(label){
+    const words=label.replace(/\//g,' / ').replace(/\s+/g,' ').trim().split(' ');
+    const lines=[]; let cur='';
+    words.forEach(w=>{
+      if((cur+' '+w).trim().length>maxChars&&cur){lines.push(cur);cur=w;}
+      else cur=(cur?cur+' '+w:w);
+    });
+    if(cur)lines.push(cur);
+    return lines.slice(0,3);
+  }
+  const maxLines=Math.max(...items.map(i=>getLines(i.label).length));
+  const labelH=maxLines*12+6;
+  const H=pad.t+plotH+labelH+pad.b;
+  const totalBarW=barW*n;
+  const W=Math.max(totalBarW+60+(n+1)*8,300);
+  const plotW=W-pad.l-pad.r;
+  const gap=(plotW-totalBarW)/(n+1);
+  const ticks=[...new Set([0,Math.round(mx/2),mx])];
+  const gridSVG=ticks.map(v=>{
+    const y=pad.t+plotH-(v/mx*plotH);
+    return '<line x1="'+pad.l+'" y1="'+y+'" x2="'+(W-pad.r)+'" y2="'+y+'" stroke="#e2e8f0" stroke-width="1"/>'
+      +'<text x="'+(pad.l-4)+'" y="'+(y+4)+'" text-anchor="end" font-size="9" fill="#a8bccc" font-family="monospace">'+v+'</text>';
+  }).join('');
+  const fs=Math.min(Math.max(Math.floor(barW/4.5),7),9);
+  const barsSVG=items.map(({label,value,color},i)=>{
+    const x=pad.l+gap*(i+1)+barW*i;
+    const bh=Math.max(value/mx*plotH,value>0?2:0);
+    const y=pad.t+plotH-bh;
+    const lines=getLines(label);
+    const yBase=pad.t+plotH+3;
+    const labelSVG=lines.map((ln,li)=>
+      '<text x="'+(x+barW/2)+'" y="'+(yBase+fs+li*(fs+3))+'" text-anchor="middle" font-size="'+fs+'" fill="#7a90a4" font-family="sans-serif">'+ln+'</text>'
+    ).join('');
+    // Transparent overlay with <title> = native browser tooltip showing full label + value on hover
+    const tip='<rect x="'+x+'" y="'+pad.t+'" width="'+barW+'" height="'+(H-pad.t)+'" fill="transparent"><title>'+label+': '+value+'</title></rect>';
+    return '<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+bh+'" fill="'+color+'" rx="3"/>'+labelSVG+tip;
+  }).join('');
+  el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:'+H+'px;display:block">'+gridSVG+barsSVG+'</svg>';
+}
+
+// Horizontal bar chart — pure HTML, always renders, dynamic label width
+function drawBarH(id, items){
+  const el=document.getElementById(id); if(!el) return;
+  const mx=Math.max(...items.map(i=>i.value),1);
+  // calc() based widths that account for the gap between label and bar
+  el.innerHTML='<div style="width:100%;box-sizing:border-box;overflow:hidden">'
+    +items.map(({label,value,color})=>{
+      const pct=Math.max(Math.round(value/mx*100),value>0?4:0);
+      return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;width:100%;box-sizing:border-box">'
+        +'<div style="width:calc(35% - 4px);flex-shrink:0;font-size:11px;color:#5a7a96;text-align:right;line-height:1.3;word-break:break-word">'+label+'</div>'
+        +'<div style="width:calc(65% - 4px);flex-shrink:0;background:#f4f8fc;border-radius:4px;height:22px;overflow:hidden">'
+        +'<div style="width:'+pct+'%;background:'+color+';height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:7px;min-width:'+(value>0?'26px':'0')+'">'
+        +'<span style="font-size:11px;font-weight:600;color:#fff;white-space:nowrap">'+value+'</span>'
+        +'</div></div></div>';
+    }).join('')
+    +'</div>';
+}
+
+// Donut chart — pure SVG, always renders
+function drawDonut(id, v1, v2, c1, c2){
+  const el=document.getElementById(id); if(!el) return;
+  const total=(v1+v2)||1;
+  // Size based on container — fills available space, min 100 max 160
+  const containerW=el.offsetWidth||el.parentElement?.offsetWidth||200;
+  const size=Math.min(Math.max(Math.floor(containerW*0.7),100),160);
+  // Ring thickness scales with size
+  const r=Math.floor(size*0.36), cx=size/2, cy=size/2, sw=Math.floor(size*0.11);
+  const circ=2*Math.PI*r;
+  const d1=v1/total*circ, d2=v2/total*circ;
+  const o1=circ/4;
+  const o2=o1-d1;
+  el.innerHTML='<svg viewBox="0 0 '+size+' '+size+'" xmlns="http://www.w3.org/2000/svg" style="width:'+size+'px;height:'+size+'px;display:block;margin:0 auto">'
+    +'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#f4f8fc" stroke-width="'+sw+'"/>'
+    +(v1>0?'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+c1+'" stroke-width="'+sw+'" stroke-dasharray="'+d1+' '+(circ-d1)+'" stroke-dashoffset="'+o1+'" stroke-linecap="butt"/>':'')
+    +(v2>0?'<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+c2+'" stroke-width="'+sw+'" stroke-dasharray="'+d2+' '+(circ-d2)+'" stroke-dashoffset="'+o2+'" stroke-linecap="butt"/>':'')
+    +'</svg>';
+}
+
+function renderChartsForTab(tab,D,T,nr,sp,ns,gp,co){
+  const COLS=['#1a3d6e','#9e2020','#5a3e8e','#1a6e42','#c47800','#7a8a96','#0a6858','#1d6fa4','#6b5e42'];
+  if(tab==='overview'){
+    const rc=topN(D,'reason',9);
+    drawBarV('c-reason', rc.map(([label,value],i)=>({label,value,color:COLS[i%COLS.length]})));
+    drawDonut('c-rq', nr, T-nr, '#c47800','#1a6e42');
+    drawDonut('c-rs', sp, ns,  '#c47800','#0a6858');
+  }
+  if(tab==='insights'){
+    const chanC=topN(D,'channel',8);
+    drawBarH('c-chan', chanC.map(([label,value],i)=>({label,value,color:COLS[i%COLS.length]})));
+  }
+  if(tab==='sprint'){
+    drawDonut('c-spr', gp, co, '#c47800','#1a6e42');
+  }
+  if(tab==='signal'){
+    const pres=D.filter(d=>d.rs==='Signal Present');
+    const fu=pres.filter(d=>stype(d)==='followup').length;
+    const cost=pres.filter(d=>stype(d)==='cost').length;
+    const comp=pres.filter(d=>stype(d)==='competitor').length;
+    drawBarV('c-sig',[
+      {label:'Follow-up collapse',value:fu,color:'#1a3d6e'},
+      {label:'Cost competitive',value:cost,color:'#c47800'},
+      {label:'Scope internal',value:comp,color:'#9e2020'},
+    ]);
+  }
+}
+
+/* ── GAP BARS ── */
+function renderGapBars(D,id){
+  const bks=[['0–15d',0,15],['16–30d',16,30],['31–60d',31,60],['61–120d',61,120],['120d+',121,9999]];
+  const cols=['#a8d8b4','#fad08a','#f0a898','#e8aaaa','#c0304a'];
+  const tc=['#165c35','#7a4a00','#7a1e10','#7a1e10','#fff'];
+  const T=D.length||1;
+  const el=document.getElementById(id);if(!el)return;
+  el.innerHTML=bks.map(([lbl,lo,hi],i)=>{
+    const n=D.filter(d=>d.gap>=lo&&d.gap<=hi).length;
+    const w=Math.max(n>0?Math.round(n/T*100):0,n>0?5:0);
+    return `<div class="gr"><span class="gl">${lbl}</span>
+      <div class="gt"><div class="gf" style="width:${w}%;background:${cols[i]}">
+        <span class="gbn" style="color:${tc[i]}">${n} lead${n!==1?'s':''}</span>
+        <span class="gbp" style="color:${tc[i]}">${Math.round(n/T*100)}%</span>
+      </div></div></div>`;
+  }).join('');
+}
+
+/* ── INSIGHTS ── */
+function renderInsights(D,T,nr,sp,gp,avgGap){
+  const el=document.getElementById('insightsGrid');
+  if(!T){el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:28px;color:var(--fa)">No data matches filters.</div>';return;}
+  const topR=topN(D,'reason',1)[0];
+  const over30=D.filter(d=>d.gap>30).length;
+  const costL=D.filter(d=>d.rs==='Signal Present'&&stype(d)==='cost').length;
+  const fuL=D.filter(d=>d.rs==='Signal Present'&&stype(d)==='followup').length;
+  const otherR=D.filter(d=>d.reason.toLowerCase()==='other').length;
+  const singleSpr=D.filter(d=>d.sprints&&d.sprints.length<=1).length;
+  const correctExits=D.filter(d=>d.rs==='No Signal').length;
+  const medianGap=D.map(d=>d.gap).sort((a,b)=>a-b)[Math.floor(T/2)]||0;
+  el.innerHTML=`
+    <div class="ic rd"><div class="icl">Top loss driver</div><h4>${topR[0]} — ${pct(topR[1],T)}% of cancellations</h4><p><strong>${topR[1]} of ${T} leads</strong> lost to this reason. Median gap: ${medianGap}d. Implement a 15-day follow-up trigger in CRM.</p></div>
+    <div class="ic am"><div class="icl">Data quality</div><h4>${nr} of ${T} reasons need review (${pct(nr,T)}%)</h4><p>${otherR} lead${otherR!==1?'s':''} tagged <strong>"Other"</strong> — zero signal value. Enforce specific reason selection at cancellation.</p></div>
+    <div class="ic am"><div class="icl">Sprint trail discipline</div><h4>${gp} leads (${pct(gp,T)}%) have sprint gaps</h4><p><strong>${over30} leads</strong> went silent for 30+ days. <strong>${singleSpr} leads</strong> have only 1 sprint — zero client interaction documented.</p></div>
+    <div class="ic gn"><div class="icl">Recovery opportunity</div><h4>${sp} leads (${pct(sp,T)}%) showed a recovery signal</h4><p>${fuL} follow-up collapse, ${costL} cost signal ignored. Proactive follow-up after proposals are highest-yield interventions.</p></div>
+    <div class="ic bl"><div class="icl">Channel intelligence</div><h4>${topN(D,'channel',1)[0]?.[0]||'—'} is the top loss channel</h4><p>${pct(topN(D,'channel',1)[0]?.[1]||0,T)}% of cancellations in this filter. Review qualification criteria and follow-up SOPs for this channel.</p></div>
+    <div class="ic tl"><div class="icl">Positive flag</div><h4>${correctExits} correct exits — sound decisions</h4><p>Leads marked No Signal had genuinely external outcomes or correct management decisions. Decision quality is good — label accuracy and sprint logging are the gaps to close.</p></div>`;
+}
+
+/* ── REASON VIEW ── */
+const RCOLS=['#1a3d6e','#9e2020','#5a3e8e','#1a6e42','#c47800','#7a8a96','#0a6858','#1d6fa4','#6b5e42'];
+function rpC(d){rpP+=d;renderRT();}
+function rpGoPage(p){rpP=p;renderRT();}
+function renderReasonV(D){
+  const rc=topN(D,'reason',9);const T=D.length||1;
+  document.getElementById('rcards').innerHTML=rc.map((r,i)=>
+    `<div class="rc" onclick="filByR('${r[0].replace(/'/g,"\\'").replace(/"/g,'&quot;')}',this)">
+      <div class="rcl">${r[0]}</div><div class="rcn">${r[1]}</div>
+      <div class="rcb" style="background:${RCOLS[i]};width:${Math.min(r[1]/T*180,100)}%"></div>
+      <div class="rcp">${pct(r[1],T)}% of total</div>
+    </div>`).join('');
+  rpD=[...D];rpP=0;st2('rtitle',`All leads (${D.length})`);renderRT();
+}
+function filByR(label,el){
+  document.querySelectorAll('.rc').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');
+  rpD=FILT.filter(d=>d.reason===label);rpP=0;st2('rtitle',`${label} (${rpD.length})`);renderRT();
+}
+function renderRT(){
+  const start=rpP*PG,slice=rpD.slice(start,start+PG);
+  document.getElementById('rtbl').innerHTML=slice.map((l,i)=>
+    `<tr onclick="openD(${ALL_DATA.indexOf(l)})">
+      <td style="font-size:11px;color:var(--fa)">${start+i+1}</td>
+      <td><span class="cln">${l.co}</span></td>
+      <td style="color:var(--mu)" title="${l.reason}">${l.reason}</td>
+      <td>${cRQ(l.rq)}</td><td>${gChip(l.gap)}</td><td>${cRS(l.rs)}</td>
+    </tr>`).join('');
+  renderPag('rp',rpD,rpP);
+}
+
+/* ── SPRINT VIEW ── */
+function spC(d){spP+=d;renderSPT();}
+function spGoPage(p){spP=p;renderSPT();}
+function renderSprintV(D,gp,co){
+  const T=D.length||1;
+  const over30=D.filter(d=>d.sq==='Gaps Present'&&d.gap>30).length;
+  const singleSpr=D.filter(d=>d.sprints&&d.sprints.length<=1).length;
+  const nr=D.filter(d=>d.rq==='Needs Review').length;
+  const costC=D.filter(d=>d.rs==='Signal Present'&&stype(d)==='cost').length;
+  st2('spgp',gp);st2('spco',co);st2('spo30',over30);st2('spss',singleSpr);
+  st2('sppct',pct(gp,T)+'%');st2('spgpv',gp);st2('spcov',co);
+  document.getElementById('spPat').innerHTML=[
+    [over30,'Dead zone 30+ days','Lead went completely silent for over a month with no sprint before cancellation.'],
+    [nr,'Reason ≠ sprint reality','The logged reason contradicts or misrepresents what the sprint trail actually shows.'],
+    [singleSpr,'Single-sprint leads','Only 1 sprint logged — zero or minimal client interaction documented.'],
+    [costC,'Cost / competitive signal ignored','Budget or competitor concern visible early — not formally resolved before progression.'],
+  ].map(([n,t,d])=>
+    `<div style="display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-bottom:1px solid var(--bd2)">
+      <div style="font-size:20px;font-weight:300;font-family:var(--mo);color:var(--nv);flex-shrink:0;min-width:28px">${n}</div>
+      <div><div style="font-size:12px;font-weight:500;color:var(--tx2);margin-bottom:2px">${t}</div>
+      <div style="font-size:11.5px;color:var(--mu);line-height:1.5">${d}</div></div>
+    </div>`).join('');
+  // Chart rendered by renderChartsForTab when sprint tab is active
+  spD=D.filter(d=>d.sq==='Gaps Present');spP=0;renderSPT();
+}
+function renderSPT(){
+  const start=spP*PG,slice=spD.slice(start,start+PG);
+  document.getElementById('sptbl').innerHTML=slice.map((l,i)=>
+    `<tr onclick="openD(${ALL_DATA.indexOf(l)})">
+      <td style="font-size:11px;color:var(--fa)">${start+i+1}</td>
+      <td><span class="cln">${l.co}</span></td>
+      <td style="color:var(--mu)" title="${l.reason}">${l.reason}</td>
+      <td>${cSQ(l.sq)}</td><td>${gChip(l.gap)}</td><td>${cRS(l.rs)}</td>
+    </tr>`).join('');
+  renderPag('sp',spD,spP);
+}
+
+/* ── GAP VIEW ── */
+function gpC(d){gpP+=d;renderGPT();}
+function gpGoPage(p){gpP=p;renderGPT();}
+function renderGapV(D){
+  const sorted=[...D].sort((a,b)=>b.gap-a.gap);const T=D.length||1;
+  const over15=D.filter(d=>d.gap>15).length;
+  st2('gpmax',(sorted[0]?.gap||'—')+'d');st2('gpmaxco',sorted[0]?.co||'—');
+  st2('gp15',over15);st2('gp15p',pct(over15,T)+'% of leads');
+  st2('gpband',D.filter(d=>d.gap>=31&&d.gap<=60).length);
+  st2('gpok',D.filter(d=>d.gap<=15).length);
+  const cM={rd:'var(--rd)',am:'var(--am)',st:'var(--st)',gn:'var(--gn)'};
+  document.getElementById('gpHL').innerHTML=[
+    [sorted[0],'Longest gap','rd'],[sorted[1],'2nd longest','am'],
+    [{gap:avg(D.map(d=>d.gap).filter(Boolean)),co:'Average (mean)'},'Mean gap','st'],
+    [{gap:D.map(d=>d.gap).sort((a,b)=>a-b)[Math.floor(T/2)],co:'Median'},'Median gap','gn'],
+  ].filter(([l])=>l&&l.gap!==undefined).map(([l,lbl,col])=>
+    `<div style="border-left:3px solid ${cM[col]};padding-left:12px;margin-bottom:14px">
+      <div style="font-size:22px;font-weight:300;font-family:var(--mo);color:${cM[col]}">${l.gap}d</div>
+      <div style="font-size:11px;color:var(--fa);line-height:1.5">${lbl}${l.co&&!lbl.includes('gap')?' — '+l.co:''}</div>
+    </div>`).join('');
+  gpD=sorted;gpP=0;renderGPT();
+}
+function renderGPT(){
+  const start=gpP*PG,slice=gpD.slice(start,start+PG);
+  document.getElementById('gptbl').innerHTML=slice.map((l,i)=>
+    `<tr onclick="openD(${ALL_DATA.indexOf(l)})">
+      <td style="font-size:11px;color:var(--fa)">${start+i+1}</td>
+      <td><span class="cln">${l.co}</span></td>
+      <td style="color:var(--mu)" title="${l.reason}">${l.reason}</td>
+      <td>${gChip(l.gap)}</td><td>${cSQ(l.sq)}</td><td>${cRS(l.rs)}</td>
+    </tr>`).join('');
+  renderPag('gp',gpD,gpP);
+}
+
+/* ── SIGNAL VIEW ── */
+function sgC(d){sgP+=d;renderSGT();}
+function sgGoPage(p){sgP=p;renderSGT();}
+function setSgF(type,btn){
+  document.querySelectorAll('#sgfbtns .fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  const pres=FILT.filter(d=>d.rs==='Signal Present');
+  sgD=type==='all'?[...pres]:pres.filter(d=>stype(d)===type);
+  sgP=0;renderSGT();
+}
+function renderSignalV(D,sp,ns){
+  const pres=D.filter(d=>d.rs==='Signal Present');
+  const none=D.filter(d=>d.rs==='No Signal');
+  const fu=pres.filter(d=>stype(d)==='followup').length;
+  const cost=pres.filter(d=>stype(d)==='cost').length;
+  const comp=pres.filter(d=>stype(d)==='competitor').length;
+  st2('sgpres',sp);st2('sgnone',ns);st2('sgcost',cost);st2('sgfu',fu);
+  st2('sgfuv',fu);st2('sgcosv',cost);st2('sgcuv',comp);
+  // Chart rendered by renderChartsForTab when signal tab is active
+  document.getElementById('sgnoneList').innerHTML=none.map(l=>
+    `<div style="padding:8px 0;border-bottom:1px solid var(--bd2);cursor:pointer" onclick="openD(${ALL_DATA.indexOf(l)})">
+      <div style="font-size:12px;font-weight:500;color:var(--tx2)">${l.co}</div>
+      <div style="font-size:11px;color:var(--mu);line-height:1.5;margin-top:2px">${l.where}</div>
+    </div>`).join('')||'<div style="padding:12px;color:var(--fa);font-size:12px">No data</div>';
+  sgD=[...pres];sgP=0;renderSGT();
+}
+function renderSGT(){
+  const start=sgP*PG,slice=sgD.slice(start,start+PG);
+  document.getElementById('sgtbl').innerHTML=slice.map((l,i)=>{
+    const st=stype(l);
+    return `<tr onclick="openD(${ALL_DATA.indexOf(l)})">
+      <td style="font-size:11px;color:var(--fa)">${start+i+1}</td>
+      <td><span class="cln">${l.co}</span></td>
+      <td><span class="chip" style="background:${SBG[st]||'#f5f5f5'};color:${SC[st]||'#888'};border:1px solid ${SC[st]||'#888'}30">${SLBL[st]||st}</span></td>
+      <td style="color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${l.where}">${l.where}</td>
+      <td>${gChip(l.gap)}</td><td>${cRQ(l.rq)}</td>
+    </tr>`;
+  }).join('');
+  renderPag('sg',sgD,sgP);
+}
+
+/* ── ALL LEADS ── */
+function lpC(d){lpP+=d;renderLT();}
+function lpGoPage(p){lpP=p;renderLT();}
+function setLF(type,btn){
+  document.querySelectorAll('#view-leads .fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  if(type==='all')lpD=[...FILT];
+  else if(type==='nr')lpD=FILT.filter(d=>d.rq==='Needs Review');
+  else if(type==='sp')lpD=FILT.filter(d=>d.rs==='Signal Present');
+  else if(type==='gap15')lpD=FILT.filter(d=>d.gap>15);
+  lpP=0;renderLT();
+}
+function renderLT(){
+  const start=lpP*PG,slice=lpD.slice(start,start+PG);
+  document.getElementById('ltbl').innerHTML=slice.map((l,i)=>
+    `<tr onclick="openD(${ALL_DATA.indexOf(l)})">
+      <td style="font-size:11px;color:var(--fa)">${start+i+1}</td>
+      <td><span class="cln">${l.co}</span></td>
+      <td style="font-size:11px;color:var(--fa);font-family:var(--mo)">${String(l.code).slice(-4)}</td>
+      <td style="color:var(--mu)" title="${l.reason}">${l.reason}</td>
+      <td>${cRQ(l.rq)}</td><td>${cSQ(l.sq)}</td>
+      <td>${gChip(l.gap)}</td><td>${cRS(l.rs)}</td>
+    </tr>`).join('');
+  renderPag('lp',lpD,lpP);
+}
+
+/* ── PAGINATION ── */
+function renderPag(pfx,data,page){
+  const total=data.length,pg=Math.ceil(total/PG)||1,start=page*PG;
+  const i=document.getElementById(pfx+'-i');if(i)i.textContent=total?`${start+1}–${Math.min(start+PG,total)} of ${total}`:'0 results';
+  const p=document.getElementById(pfx+'-p');if(p)p.disabled=page===0;
+  const nx=document.getElementById(pfx+'-nx');if(nx)nx.disabled=page>=pg-1;
+  const n=document.getElementById(pfx+'-n');if(n)n.innerHTML=Array.from({length:pg},(_,i)=>`<button class="pbtn${i===page?' on':''}" onclick="${pfx}GoPage(${i})">${i+1}</button>`).join('');
+}
+
+/* ── DRAWER ── */
+function openD(idx){
+  const l=ALL_DATA[idx];if(!l)return;
+  const s=gs(l.gap);
+  document.getElementById('dcode').textContent=l.code;
+  document.getElementById('dco').textContent=l.co;
+  const rqC=l.rq==='Accurate'?'g':'w';
+  const sqC=l.sq==='Complete'?'g':'w';
+  const rsC=l.rs==='No Signal'?'t':'w';
+  document.getElementById('dchips').innerHTML=
+    `<span class="dch ${rqC}">Reason: ${l.rq}</span>
+     <span class="dch ${sqC}">Sprint: ${l.sq}</span>
+     <span class="dch ${rsC}">${l.rs}</span>
+     <span class="dch ${l.gap>15?'w':'g'}">${l.gap}d gap</span>`;
+  document.getElementById('drsn').textContent=l.reason;
+  document.getElementById('dcmt').textContent=l.comment;
+  document.getElementById('dcity').textContent=l.city||'—';
+  document.getElementById('darea').textContent=l.area?Number(l.area).toLocaleString():'—';
+  document.getElementById('dchan2').textContent=l.channel||'—';
+  document.getElementById('dby').textContent=`${l.stage||'—'} · ${l.by||'—'}`;
+  document.getElementById('dgap').innerHTML=`<span class="gpill" style="background:${s.bg};color:${s.c};border:1px solid ${s.b}">${l.gap} days between last sprint and cancellation</span>`;
+  document.getElementById('dsgb').className='sgb'+(l.rs==='No Signal'?' ns':'');
+  document.getElementById('dsgw').textContent=l.where||'—';
+  // Reason quality note — explain why rq was assigned
+  const rqNote = l.rq==='Accurate'
+    ? 'Reason "'+l.reason+'" aligns with the sprint trail. No discrepancy detected.'
+    : l.reason.toLowerCase()==='other'
+      ? '"Other" selected — provides zero signal value for pattern analysis. Specific reason required.'
+      : 'Reason "'+l.reason+'" does not fully match what the sprint trail shows. Review the sprint log below for the actual story.';
+  document.getElementById('droot').textContent=rqNote;
+  document.getElementById('dslog').innerHTML=l.sprints&&l.sprints.length?
+    l.sprints.map(sp=>
+      `<div class="se">
+        <span class="sed">${sp.d}</span>
+        <span class="set2">${sp.t}</span>
+        <div class="sec"><div class="sedesc">${sp.desc}</div><div class="seby">${sp.by}</div></div>
+      </div>`).join('')
+    :`<div style="font-size:11px;color:var(--fa);font-style:italic;padding:8px 0">No sprint entries found.</div>`;
+  document.getElementById('dr2').classList.add('on');
+  document.getElementById('dbk').classList.add('on');
+}
+function closeD(){document.getElementById('dr2').classList.remove('on');document.getElementById('dbk').classList.remove('on');}
+
+/* ── VIEW SWITCHER ── */
+function sv(name,el){
+  document.querySelectorAll('.ntb').forEach(t=>t.classList.remove('on'));el.classList.add('on');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('view-'+name).classList.add('on');
+  if(name==='glossary'||!ALL_DATA.length)return;
+  // All data/text updates run immediately
+  const D=FILT,T=D.length;if(!T)return;
+  const nr=D.filter(d=>d.rq==='Needs Review').length;
+  const sp=D.filter(d=>d.rs==='Signal Present').length;
+  const ns=D.filter(d=>d.rs==='No Signal').length;
+  const gp=D.filter(d=>d.sq==='Gaps Present').length;
+  const co=D.filter(d=>d.sq==='Complete').length;
+  const avgGap=avg(D.map(d=>d.gap).filter(Boolean));
+  renderInsights(D,T,nr,sp,gp,avgGap);
+  renderSprintV(D,gp,co);
+  renderSignalV(D,sp,ns);
+  renderReasonV(D);
+  renderGapV(D);
+  lpD=[...D];lpP=0;renderLT();
+  // Charts render after DOM paints the newly visible canvas
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    renderChartsForTab(name,D,T,nr,sp,ns,gp,co);
+  }));
+}
+
+/* ── MODAL ── */
+function openModal(tab='conn'){
+  buildPolicyRows();
+  switchPolTab(tab);
+  document.getElementById('moverlay').classList.add('on');
+}
+function closeModal(){document.getElementById('moverlay').classList.remove('on');}
+function switchPolTab(tab){
+  document.querySelectorAll('.pol-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.pol-panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('ptab-'+tab).classList.add('on');
+  document.getElementById('ppanel-'+tab).classList.add('on');
+}
+function switchSrc(type,el){
+  document.querySelectorAll('.src-tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');
+  document.querySelectorAll('.src-panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('src-'+type).classList.add('on');
+}
+
+/* ── DATA FETCHING ── */
+async function fetchData(cfg){
+  if(cfg.type==='gsheets')return fetchGSheets(cfg);
+  if(cfg.type==='redash') return fetchRedash(cfg);
+  if(cfg.type==='api')    return fetchAPI(cfg);
+}
+async function fetchGSheets(cfg){
+  const url=cfg.url+(cfg.url.includes('?')?'&':'?')+'action=all&t='+Date.now();
+  const res=await fetch(url);
+  if(!res.ok)throw new Error(`HTTP ${res.status}`);
+  const json=await res.json();
+  const rows=json.data||json;
+  if(!Array.isArray(rows))throw new Error('Expected array from Apps Script');
+  return rows.map(r=>normalise(r));
+}
+async function fetchRedash(cfg){
+  const base=cfg.rdUrl.replace(/\/$/,'');
+  const headers={'Authorization':`Key ${cfg.rdKey}`};
+  const[lr,sr]=await Promise.all([
+    fetch(`${base}/api/queries/${cfg.leadsId}/results.json`,{headers}),
+    cfg.sprintId?fetch(`${base}/api/queries/${cfg.sprintId}/results.json`,{headers}):Promise.resolve(null),
+  ]);
+  if(!lr.ok)throw new Error(`Leads query HTTP ${lr.status}`);
+  const leadsRows=(await lr.json()).query_result?.data?.rows||[];
+  let sprintRows=[];
+  if(sr&&sr.ok)sprintRows=(await sr.json()).query_result?.data?.rows||[];
+  const byCode={};
+  sprintRows.forEach(s=>{
+    const c=String(s.code||s.lead_code||'').trim();
+    if(!byCode[c])byCode[c]=[];
+    byCode[c].push({d:s.sprint_createdat||'',t:s.sprint_type||'',desc:s.last_sprint_description||'',by:s.created_by||''});
+  });
+  return leadsRows.map(r=>normalise({...r,sprints:(byCode[String(r.code||'').trim()]||[]).sort((a,b)=>a.d.localeCompare(b.d))}));
+}
+async function fetchAPI(cfg){
+  const headers={};
+  if(cfg.authKey&&cfg.authVal)headers[cfg.authKey]=cfg.authVal;
+  const res=await fetch(cfg.url,{headers});
+  if(!res.ok)throw new Error(`HTTP ${res.status}`);
+  const json=await res.json();
+  const rows=Array.isArray(json)?json:(json.data||json.rows||json.leads||[]);
+  return rows.map(r=>normalise(r));
+}
+function toISO(s){
+  // Convert dd/mm/yyyy (Indian/sheet format) → yyyy-mm-dd for date comparison
+  if(!s) return '';
+  const p=s.split('/');
+  if(p.length===3&&p[2].length===4) return p[2]+'-'+p[1].padStart(2,'0')+'-'+p[0].padStart(2,'0');
+  return s; // already ISO or unknown format
+}
+function normalise(r){
+  const g=(...keys)=>{for(const k of keys){const v=r[k]??r[k.toLowerCase()]??r[k.replace(/_/g,' ').toLowerCase()];if(v!==undefined&&v!=='')return String(v).trim();}return '';};
+  const code=g('code','lead_code','lead code')||Math.random().toString(36).slice(2);
+  const sprints=Array.isArray(r.sprints)?r.sprints:[];
+  return{
+    code,
+    co:g('company_name','company name','company'),
+    reason:g('cancelled_reason','cancelled reason'),
+    comment:g('cancelled_comment','cancelled comment')||'—',
+    cancelDate:toISO(g('cancellation_date','cancellation date')),
+    city:g('city'),channel:g('channel'),
+    stage:g('current_stage','main_stage','lead main stage','lead_main_stage'),
+    by:g('cancelled_by','cancelled by'),
+    area:parseInt(g('area_sft','area sft'))||0,
+    gap:parseInt(g('days_between_lastsprint_cancellation','lead age','lead_age'))||0,
+    rq:autoRQ(g('cancelled_reason','cancelled reason'),sprints),
+    sq:autoSQ(sprints),
+    rs:autoRS(g('cancelled_reason','cancelled reason'),sprints,g('cancelled_comment','cancelled comment')),
+    where:autoWhere(sprints),
+    sprints,
+  };
+}
+function autoRQ(reason,sprints){
+  if(!reason)return'Needs Review';
+  const r=reason.toLowerCase();
+  const st=sprints.map(s=>(s.desc||'').toLowerCase()).join(' ');
+  if(r==='other')return'Needs Review';
+  if(r.includes('timeline')&&st.includes('legal'))return'Needs Review';
+  if((r.includes('cost')||r.includes('qualification'))&&st.includes('approved'))return'Needs Review';
+  if(r.includes('not respond')&&(st.includes('meeting done')||st.includes('cbm done')||st.includes('approved')))return'Needs Review';
+  if(r.includes('scope')&&!st.includes('scope'))return'Needs Review';
+  return'Accurate';
+}
+function autoSQ(sprints){
+  if(!sprints||sprints.length===0)return'Gaps Present';
+  if(sprints.length<=1)return'Gaps Present';
+  const meaningful=sprints.filter(s=>s.desc&&s.desc!=='(no description)'&&s.t!=='priority');
+  if(meaningful.length===0)return'Gaps Present';
+  return'Complete';
+}
+function autoRS(reason,sprints,comment){
+  if(!reason)return'Signal Present';
+  const r=(reason+' '+(comment||'')).toLowerCase();
+  const st=sprints.map(s=>(s.desc||'').toLowerCase()).join(' ');
+  if(reason.toLowerCase().includes('management decision')&&!st.includes('cost')&&!st.includes('budget'))return'No Signal';
+  if((r.includes('bts')||r.includes('build to suit')||r.includes('legal'))&&!st.includes('follow'))return'No Signal';
+  return'Signal Present';
+}
+function autoWhere(sprints){
+  if(!sprints||sprints.length===0)return'No sprint data.';
+  const m=sprints.filter(s=>s.desc&&s.desc!=='(no description)');
+  if(m.length===0)return'Only priority/status flags — no descriptive sprint entries.';
+  const last=m[m.length-1];
+  return`Last sprint ${last.d} by ${last.by}: "${last.desc.slice(0,120)}${last.desc.length>120?'…':''}"`;
+}
+
+/* ── CONNECTION MANAGEMENT ── */
+async function connect(type){
+  const cfg=buildCfg(type);if(!cfg)return;
+  SRC_CFG=cfg;
+  try{const safe={...cfg};if(safe.rdKey)safe.rdKey='***';if(safe.authVal)safe.authVal='***';localStorage.setItem('lci_cfg',JSON.stringify(safe));}catch(e){}
+  closeModal();await doRefresh();scheduleRefresh();
+}
+function buildCfg(type){
+  if(type==='gsheets'){
+    const url=document.getElementById('gs-url').value.trim();
+    if(!url){showTR('gs-test','err','Enter the Apps Script Web App URL.');return null;}
+    return{type:'gsheets',url,interval:(parseInt(document.getElementById('gs-hr').value)||0)*3600+(parseInt(document.getElementById('gs-min').value)||0)*60||600};
+  }
+  if(type==='redash'){
+    const rdUrl=document.getElementById('rd-url').value.trim();
+    const leadsId=document.getElementById('rd-leads-id').value.trim();
+    const rdKey=document.getElementById('rd-key').value.trim();
+    if(!rdUrl||!leadsId||!rdKey){showTR('rd-test','err','Fill in all Redash fields.');return null;}
+    return{type:'redash',rdUrl,leadsId,sprintId:document.getElementById('rd-sprint-id').value.trim(),rdKey,interval:(parseInt(document.getElementById('rd-hr').value)||0)*3600+(parseInt(document.getElementById('rd-min').value)||0)*60||900};
+  }
+  if(type==='api'){
+    const url=document.getElementById('api-url').value.trim();
+    if(!url){showTR('api-test','err','Enter the API endpoint URL.');return null;}
+    return{type:'api',url,authKey:document.getElementById('api-auth-key').value.trim(),authVal:document.getElementById('api-auth-val').value.trim(),interval:(parseInt(document.getElementById('api-hr').value)||0)*3600+(parseInt(document.getElementById('api-min').value)||0)*60||900};
+  }
+}
+async function testConn(type){
+  const cfg=buildCfg(type);if(!cfg)return;
+  showTR(type+'-test','info','Testing…');
+  try{const rows=await fetchData(cfg);showTR(type+'-test','ok',`✓ ${rows.length} leads found. Ready to connect.`);}
+  catch(e){showTR(type+'-test','err','✗ '+e.message);}
+}
+function showTR(id,cls,msg){const el=document.getElementById(id);if(el){el.style.display='block';el.className='test-res '+cls;el.textContent=msg;}}
+async function doRefresh(){
+  if(!SRC_CFG)return;
+  setChip('loading','Refreshing…');
+  document.getElementById('lbar').classList.add('on');
+  document.getElementById('refreshBtn').classList.add('spinning');
+  try{
+    const rows=await fetchData(SRC_CFG);
+    ALL_DATA=rows;FILT=[...rows];
+    document.getElementById('emptyState').style.display='none';
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+    document.getElementById('view-overview').classList.add('on');
+    document.querySelectorAll('.ntb').forEach(t=>t.classList.remove('on'));
+    document.getElementById('tab-overview').classList.add('on');
+    const now=new Date();
+    st2('lastR',now.toLocaleTimeString());
+    document.getElementById('rmeta').style.display='block';
+    document.getElementById('btnDisc').style.display='';
+    const src=SRC_CFG.type==='gsheets'?'Google Sheets':SRC_CFG.type==='redash'?'Redash':'Custom API';
+    setChip('live',`Live · ${rows.length} leads`);
+    document.getElementById('bsub').textContent=`${src} · ${rows.length} leads · ${now.toLocaleTimeString()}`;
+    document.getElementById('gs-url').value=SRC_CFG.url||'';
+    document.getElementById('gs-status').style.display='flex';
+    st2('gs-status-txt',`✓ ${rows.length} leads loaded`);
+    st2('gs-status-time',now.toLocaleTimeString());
+    // Trigger full render
+    clearAll();
+  }catch(e){
+    setChip('error','Connection error');
+    document.getElementById('alertBar').style.display='flex';
+    document.getElementById('alertBar').className='ab red';
+    document.getElementById('alertTxt').textContent='⚠ Fetch failed: '+e.message;
+  }finally{
+    document.getElementById('lbar').classList.remove('on');
+    document.getElementById('refreshBtn').classList.remove('spinning');
+  }
+}
+function scheduleRefresh(){
+  clearInterval(RTIMER);
+  if(!SRC_CFG?.interval||SRC_CFG.interval===0)return;
+  RTIMER=setInterval(()=>doRefresh(),SRC_CFG.interval*1000);
+  const next=new Date(Date.now()+SRC_CFG.interval*1000);
+  st2('nextR',next.toLocaleTimeString());
+}
+function manualRefresh(){doRefresh();}
+function disconnect(){
+  SRC_CFG=null;clearInterval(RTIMER);
+  try{localStorage.removeItem('lci_cfg');}catch(e){}
+  ALL_DATA=[];FILT=[];
+  setChip('','Connect data source');
+  document.getElementById('rmeta').style.display='none';
+  document.getElementById('btnDisc').style.display='none';
+  document.getElementById('bsub').textContent='Sprint & Reason Analysis · No data source connected';
+  document.getElementById('emptyState').style.display='block';
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+}
+function setChip(state,label){
+  const chip=document.getElementById('connChip');
+  chip.className='conn-chip'+(state?' '+state:'');
+  st2('connLabel',label);
+}
+
+/* ── GLOSSARY ── */
+function buildGlossary(){
+  const el=document.getElementById('view-glossary');if(!el)return;
+  el.innerHTML=`<div style="max-width:840px">
+  <div style="background:var(--nv);border-radius:12px;padding:22px 26px;margin-bottom:18px;color:#fff">
+    <div style="font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:7px">Dashboard Guide</div>
+    <div style="font-size:17px;font-weight:600;margin-bottom:7px">How to read this dashboard</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.72);line-height:1.75">Compares what the <strong style="color:#fff">sales team logged as the cancellation reason</strong> against what the <strong style="color:#fff">sprint trail actually shows</strong>. The goal is to find patterns, improve data quality, and identify where a different action could have changed the outcome.</div>
+  </div>
+  ${[
+    ['Reason Quality','Does the logged reason match what the sprint trail shows?',[
+      ['c-ac','Accurate','The reason logged matches what the sprint notes show. Example: "Client not responding" with a sprint trail showing multiple unanswered calls and no engagement.'],
+      ['c-nr','Needs Review','The reason doesn\'t match the sprint trail — or gives zero information. Examples: "Other" (no signal), "Cost higher than qualification" but client was approving layouts the day before, "Timeline Misalignment" but comment reveals a legal scope issue. Not a blame tag — flags where data needs a second look.'],
+    ]],
+    ['Sprint Quality','Is the sprint trail complete enough to understand what happened?',[
+      ['c-co','Complete','Meaningful entries with descriptions — CBM notes, follow-up logs, meeting outcomes. You can read the entire lead journey.'],
+      ['c-gp','Gaps Present','Missing entries, long silences, or only priority flags with no descriptions. Doesn\'t mean nothing happened — means it wasn\'t logged, so we can\'t learn from it.'],
+    ]],
+    ['Recovery Signal','Was there a moment where a different action could have changed the outcome?',[
+      ['c-sp','Signal Present','A visible intervention point existed — cost concern never resolved, client said "I\'ll call back" and team never followed up, proposal sent with no follow-up sprint. Doesn\'t mean the loss was definitely avoidable — it means the data shows a moment worth reviewing.'],
+      ['c-ns','No Signal','Outcome driven by external factors — BTS construction, legal scope issue, operational infeasibility. These are correct exits. Decision-making was sound.'],
+    ]],
+  ].map(([title,sub,rows])=>`
+    <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:13px">
+      <div style="background:var(--fo);padding:12px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px">
+        <span style="font-size:12px;font-weight:600;color:var(--nv)">${title}</span>
+        <span style="font-size:11px;color:var(--mu)">${sub}</span>
+      </div>
+      <div style="padding:4px 0">${rows.map(([cls,lbl,desc],i)=>`
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 18px${i<rows.length-1?';border-bottom:1px solid var(--bd2)':''}">
+          <span class="chip ${cls}" style="flex-shrink:0;margin-top:2px">${lbl}</span>
+          <div style="font-size:12px;color:var(--mu);line-height:1.65">${desc}</div>
+        </div>`).join('')}
+      </div>
+    </div>`).join('')}
+  <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:13px">
+    <div style="background:var(--fo);padding:12px 18px;border-bottom:1px solid var(--bd)"><span style="font-size:12px;font-weight:600;color:var(--nv)">Dead-Zone Gap</span><span style="font-size:11px;color:var(--mu);margin-left:10px">Days between last sprint and cancellation date</span></div>
+    <div style="padding:14px 18px">
+      <div style="font-size:12px;color:var(--mu);margin-bottom:12px;line-height:1.7">Most direct measure of follow-up discipline. A high gap = lead was mentally dropped before it was formally cancelled.</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <div style="background:#eaf7f0;border:1px solid #7ecba0;border-radius:8px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:300;font-family:var(--mo);color:#1a6e42">0–15d</div><div style="font-size:11px;color:#1a6e42;margin-top:3px;font-weight:500">Healthy</div><div style="font-size:11px;color:var(--mu);margin-top:3px;line-height:1.5">Lead was actively managed close to cancellation</div></div>
+        <div style="background:#fff8ec;border:1px solid #f0c060;border-radius:8px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:300;font-family:var(--mo);color:#c47800">16–60d</div><div style="font-size:11px;color:#c47800;margin-top:3px;font-weight:500">Attention needed</div><div style="font-size:11px;color:var(--mu);margin-top:3px;line-height:1.5">Follow-up cadence broke down — review why contact stopped</div></div>
+        <div style="background:#fdf2f2;border:1px solid #e8aaaa;border-radius:8px;padding:12px;text-align:center"><div style="font-size:18px;font-weight:300;font-family:var(--mo);color:#9e2020">60d+</div><div style="font-size:11px;color:#9e2020;margin-top:3px;font-weight:500">Zombie lead</div><div style="font-size:11px;color:var(--mu);margin-top:3px;line-height:1.5">Lead abandoned in pipeline — formal closure delayed by months</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:13px">
+    <div style="background:var(--fo);padding:12px 18px;border-bottom:1px solid var(--bd)"><span style="font-size:12px;font-weight:600;color:var(--nv)">How to use</span></div>
+    <div style="padding:14px 18px;display:flex;flex-direction:column;gap:13px">
+      ${[['Use the left panel filters to slice the data','Filter by Stage, City, Channel, Cancelled By, Reason Quality or any combination. Every chart and table updates instantly.'],
+         ['Click any company name to open the full lead story','Side panel shows the full sprint log — every entry, date, who logged it, and what was said.'],
+         ['Insights tab surfaces the most important patterns','Insights update based on your active filters — filtering to a stage shows patterns specifically for that stage.'],
+         ['⚙ button top right — View policy','Toggle tabs and charts on or off to tailor the view for leadership vs internal team.'],
+         ['Data refreshes every 10 minutes automatically','Pulls directly from your Google Sheet. New cancellations appear within 10 minutes — no manual action needed.'],
+      ].map(([t,d],i)=>`
+        <div style="display:flex;align-items:flex-start;gap:13px">
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--nv);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">${i+1}</div>
+          <div><div style="font-size:12.5px;font-weight:500;color:var(--tx2);margin-bottom:2px">${t}</div><div style="font-size:12px;color:var(--mu);line-height:1.6">${d}</div></div>
+        </div>`).join('')}
+    </div>
+  </div>
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════
+   SHAREABLE CONFIG
+   Paste your Apps Script Web App URL here.
+   Anyone opening this file on any device
+   will auto-connect — no setup needed.
+═══════════════════════════════════════════ */
+const SHARED_URL       = 'https://script.google.com/macros/s/AKfycbwy4Rz2FJ5tp14vxdZVAoc6ogs9KCZWnO7HHyByzyrm8UIkg1r-RRT_jSqlu5BEPf_g/exec';
+const SHARED_INTERVAL  = 600;   // auto-refresh every 10 min
+
+/* ── INIT ── */
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeD();closeModal();}});
+buildGlossary();
+loadSavedPolicy();
+
+(async function init(){
+  if(SHARED_URL && !SHARED_URL.includes('YOUR_APPS_SCRIPT')){
+    SRC_CFG={type:'gsheets',url:SHARED_URL,interval:SHARED_INTERVAL};
+    document.getElementById('gs-url').value=SHARED_URL;
+    await doRefresh();
+    scheduleRefresh();
+    return;
+  }
+  try{
+    const saved=localStorage.getItem('lci_cfg');
+    if(saved){
+      const cfg=JSON.parse(saved);
+      if(cfg.url){
+        SRC_CFG={...cfg,interval:cfg.interval||600};
+        if(cfg.url)document.getElementById('gs-url').value=cfg.url;
+        await doRefresh();scheduleRefresh();
+      }
+    }
+  }catch(e){}
+})();
+</script>
+
+
+</body></html>
